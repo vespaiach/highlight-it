@@ -4,7 +4,7 @@ If you want to quickly highlight code syntax on your web pages without reading t
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/vespaiach/prismjs-loader@v1.0.1/dist/prismjs-loader.js"
-    integrity="sha384-WxJ7af4egxjXGSl/0ldvVBiaBVhKXo3vu3qHG/Av4ZnfNVSJuX8d0Kgn5m7cFlI/"
+    integrity="sha384-fQ8ZFrFH+LbIS8XcKxvpBaapsqCkg93NVlsLk2+xmNfkFHWwHsRfm3BcYORlbOhY"
     crossorigin="anonymous" defer>
 </script>
 ```
@@ -32,7 +32,7 @@ If you want to load themes other than the default, you can specify them in the c
 
 <!-- Load the prism-coy theme in dark mode; otherwise, load the prism-funky theme -->
 <script src="https://cdn.jsdelivr.net/gh/vespaiach/prismjs-loader@v1.0.1/dist/prismjs-loader.js"
-    integrity="sha384-WxJ7af4egxjXGSl/0ldvVBiaBVhKXo3vu3qHG/Av4ZnfNVSJuX8d0Kgn5m7cFlI/"
+    integrity="sha384-fQ8ZFrFH+LbIS8XcKxvpBaapsqCkg93NVlsLk2+xmNfkFHWwHsRfm3BcYORlbOhY"
     crossorigin="anonymous" defer
     class="dark:prism-coy prism-funky">
 </script>
@@ -53,3 +53,4 @@ Available Prism Themes:
 ## References
 
 - [PrismJS](https://github.com/PrismJS/prism)
+- [Generate SRI Hash](https://www.srihash.org/)
