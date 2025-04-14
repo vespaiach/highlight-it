@@ -1,4 +1,4 @@
-;(function () {
+;(async function () {
   if (typeof document === 'undefined') {
     return
   }
@@ -52,7 +52,7 @@
    * @param {string} src - The source URL for the script or stylesheet.
    * @param {Function} [success] - Optional callback function to execute when the element is successfully loaded.
    */
-  function addElement(tagName, src, success) {
+  function addElement({ tagName, src }) {
     const element = document.createElement(tagName)
     if (tagName === 'link') {
       element.rel = 'stylesheet'
@@ -61,8 +61,6 @@
       element.defer = true
       element.src = `${BASE_URL}${src}`
     }
-
-		element.onload = () => { success?.() }
     document.body.appendChild(element)
   }
 
@@ -72,30 +70,45 @@
 
   const themes = getThemeOptions()
   const isDarkMode = window.matchMedia?.('(prefers-color-scheme: dark)').matches
-  const scriptsToLoad = [
+  const coreScriptsToLoad = [
     { tagName: 'link', src: `/themes/${isDarkMode ? themes.dark ?? themes.light : themes.light}.min.css` },
-    { tagName: 'script', src: '/components/prism-core.min.js' },
-    { tagName: 'script', src: '/plugins/autoloader/prism-autoloader.min.js' }
+    { tagName: 'link', src: '/plugins/line-numbers/prism-line-numbers.min.css' },
+    { tagName: 'script', src: '/components/prism-core.min.js' }
+  ]
+  const pluginsToLoad = [
+    { tagName: 'script', src: '/plugins/autoloader/prism-autoloader.min.js' },
+    { tagName: 'script', src: '/plugins/line-numbers/prism-line-numbers.min.js' }
   ]
 
-  let loadedCount = 0
-
-  /**
-   * Callback to execute when all scripts are loaded.
-   */
-  function onLoaded() {
-    Prism.highlightAll()
+  function checkLoadingStatus(isLoaded) {
+    return new Promise((res, rej) => {
+      let cycle = 0
+      const loop = () => {
+        if (isLoaded()) {
+          res()
+        } else {
+          cycle++
+          if (cycle > 200) {
+            rej(new Error('Prism failed to load within the expected time.'))
+          } else {
+            requestAnimationFrame(loop)
+          }
+        }
+      }
+      loop()
+    })
   }
 
   try {
-    scriptsToLoad.forEach(({ tagName, src }) => {
-      addElement(tagName, src, () => {
-        loadedCount++
-        if (loadedCount === scriptsToLoad.length) {
-          onLoaded()
-        }
-      })
-    })
+    document.body.classList.add('line-numbers')
+
+    coreScriptsToLoad.forEach(addElement)
+    await checkLoadingStatus(() => !!window.Prism?.filename)
+
+    pluginsToLoad.forEach(addElement)
+    await checkLoadingStatus(() => !!window.Prism?.plugins?.autoloader)
+
+    Prism.highlightAll()
   } catch (error) {
     console.error('Error loading PrismJS:', error)
   }
