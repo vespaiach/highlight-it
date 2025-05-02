@@ -9,7 +9,7 @@ If you want to quickly highlight code syntax on your web pages without reading t
 </script>
 ```
 
-Note: Place it at the end of your <body> tag.
+Note: Place it at the end of your `body` tag.
 
 ## What it does
 
