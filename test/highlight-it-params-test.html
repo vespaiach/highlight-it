@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>highlight-it - Test with Pack and Dark Mode Parameters</title>
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+				background: #f5f5f5;
+			}
+
+			h1 {
+				color: #333;
+			}
+
+			.test-section {
+				background: white;
+				padding: 20px;
+				margin: 20px 0;
+				border-radius: 8px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			.params {
+				background: #e3f2fd;
+				padding: 15px;
+				border-radius: 4px;
+				margin: 15px 0;
+			}
+
+			.params code {
+				background: #1976d2;
+				color: white;
+				padding: 2px 6px;
+				border-radius: 3px;
+				font-family: monospace;
+			}
+
+			pre[class*="language-"] {
+				margin: 10px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>🎨 highlight-it - Pack & Dark Mode Test</h1>
+
+		<div class="test-section">
+			<h2>Configuration</h2>
+			<div class="params">
+				<p>
+					<strong>Script URL:</strong>
+					<code id="scriptUrl">Loading...</code>
+				</p>
+				<p>
+					<strong>Pack Parameter:</strong>
+					<code id="packParam">Loading...</code>
+				</p>
+				<p>
+					<strong>Dark Mode Parameter:</strong>
+					<code id="darkModeParam">Loading...</code>
+				</p>
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>JavaScript Example</h2>
+			<pre><code class="language-javascript">// Example JavaScript code
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+const result = fibonacci(10);
+console.log('Fibonacci of 10:', result);
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>Python Example</h2>
+			<pre><code class="language-python"># Example Python code
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
+
+print(quicksort([3, 6, 8, 10, 1, 2, 1]))
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>CSS Example</h2>
+			<pre><code class="language-css">/* Example CSS */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card {
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+</code></pre>
+		</div>
+
+		<script>
+			// Display script configuration after load
+			window.addEventListener("load", () => {
+				// Find the highlight-it script
+				const scripts = document.querySelectorAll('script[src*="highlight-it"]');
+				if (scripts.length > 0) {
+					const script = scripts[scripts.length - 1];
+					const url = new URL(script.src);
+
+					document.getElementById("scriptUrl").textContent = script.src;
+					document.getElementById("packParam").textContent =
+						url.searchParams.get("pack") ||
+						url.searchParams.get("config") ||
+						"(auto: minimal)";
+					document.getElementById("darkModeParam").textContent =
+						url.searchParams.get("darkmode") ||
+						url.searchParams.get("darkMode") ||
+						"(auto-detected from system)";
+				}
+			});
+		</script>
+
+		<!-- Load highlight-it with complete pack and dark mode -->
+		<script src="../dist/highlight-it.js?pack=complete&darkmode=false"></script>
+	</body>
+
+</html>

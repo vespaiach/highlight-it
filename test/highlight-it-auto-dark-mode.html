@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>highlight-it - Auto Dark Mode Demo</title>
+		<style>
+			:root {
+				--bg-color: #f5f5f5;
+				--text-color: #333;
+				--card-bg: white;
+				--card-shadow: rgba(0, 0, 0, 0.1);
+			}
+
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--bg-color: #1a1a1a;
+					--text-color: #e0e0e0;
+					--card-bg: #2a2a2a;
+					--card-shadow: rgba(0, 0, 0, 0.3);
+				}
+			}
+
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+				background: var(--bg-color);
+				color: var(--text-color);
+				transition: background 0.3s, color 0.3s;
+			}
+
+			h1,
+			h2 {
+				color: var(--text-color);
+			}
+
+			.test-section {
+				background: var(--card-bg);
+				padding: 20px;
+				margin: 20px 0;
+				border-radius: 8px;
+				box-shadow: 0 2px 4px var(--card-shadow);
+				transition: background 0.3s, box-shadow 0.3s;
+			}
+
+			.notice {
+				background: #e8f5e9;
+				border-left: 4px solid #4caf50;
+				padding: 15px;
+				margin: 15px 0;
+				border-radius: 4px;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				.notice {
+					background: #1b5e20;
+					border-left-color: #66bb6a;
+				}
+			}
+
+			.notice strong {
+				color: #2e7d32;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				.notice strong {
+					color: #81c784;
+				}
+			}
+
+			pre[class*="language-"] {
+				margin: 10px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>🎨 highlight-it - Auto Dark Mode Detection</h1>
+
+		<div class="test-section">
+			<h2>How It Works</h2>
+			<div class="notice">
+				<strong>Auto Mode:</strong> This page uses <code>pack=complete</code> without
+				specifying darkmode. The script automatically detects your system's dark mode
+				preference using <code>prefers-color-scheme</code>.
+			</div>
+			<p>
+				Try changing your system's appearance settings (light/dark mode) and reload this
+				page. The syntax highlighting theme will automatically match your preference!
+			</p>
+		</div>
+
+		<div class="test-section">
+			<h2>JavaScript Code</h2>
+			<pre><code class="language-javascript">// Async/await example
+async function fetchUserData(userId) {
+  try {
+    const response = await fetch(`/api/users/${userId}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    throw error;
+  }
+}
+
+// Usage
+fetchUserData(123)
+  .then(user => console.log('User:', user))
+  .catch(err => console.error('Failed:', err));
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>React Component</h2>
+			<pre><code class="language-jsx">// React functional component with hooks
+import React, { useState, useEffect } from 'react';
+
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/users/${userId}`);
+        const data = await response.json();
+        setUser(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUser();
+  }, [userId]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  
+  return (
+    <div className="user-profile">
+      <h2>{user.name}</h2>
+      <p>Email: {user.email}</p>
+    </div>
+  );
+}
+
+export default UserProfile;
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>SQL Query</h2>
+			<pre><code class="language-sql">-- Complex SQL query with joins
+SELECT 
+    u.id,
+    u.name,
+    u.email,
+    COUNT(o.id) as order_count,
+    SUM(o.total) as total_spent
+FROM 
+    users u
+LEFT JOIN 
+    orders o ON u.id = o.user_id
+WHERE 
+    u.created_at >= '2024-01-01'
+    AND u.status = 'active'
+GROUP BY 
+    u.id, u.name, u.email
+HAVING 
+    COUNT(o.id) > 0
+ORDER BY 
+    total_spent DESC
+LIMIT 10;
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>Bash Script</h2>
+			<pre><code class="language-bash">#!/bin/bash
+
+# Deploy script with error handling
+set -e
+
+PROJECT_DIR="/var/www/myapp"
+BACKUP_DIR="/var/backups/myapp"
+
+echo "Starting deployment..."
+
+# Create backup
+echo "Creating backup..."
+timestamp=$(date +%Y%m%d_%H%M%S)
+tar -czf "${BACKUP_DIR}/backup_${timestamp}.tar.gz" "${PROJECT_DIR}"
+
+# Pull latest code
+echo "Pulling latest code..."
+cd "${PROJECT_DIR}"
+git pull origin main
+
+# Install dependencies
+echo "Installing dependencies..."
+npm install --production
+
+# Build project
+echo "Building project..."
+npm run build
+
+# Restart service
+echo "Restarting service..."
+sudo systemctl restart myapp
+
+echo "Deployment completed successfully!"
+</code></pre>
+		</div>
+
+		<script>
+			// Display current theme detection
+			window.addEventListener("load", () => {
+				const isDark = window.matchMedia &&
+					window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+				console.log("System prefers dark mode:", isDark);
+				console.log("highlight-it will use:", isDark ? "dark theme" : "light theme");
+			});
+		</script>
+
+		<!-- Load highlight-it with complete pack and auto dark mode detection -->
+		<script src="../dist/highlight-it.js?pack=complete"></script>
+	</body>
+
+</html>

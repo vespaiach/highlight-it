@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>highlight-it - Query String Configuration</title>
+		<style>
+			body {
+				font-family: system-ui, -apple-system, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+
+			.info {
+				background: #f0f7ff;
+				border-left: 4px solid #0066cc;
+				padding: 15px;
+				margin: 20px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>Custom Configuration via Query String</h1>
+
+		<div class="info">
+			<strong>Configuration:</strong> ?theme=light:prism-tomorrow,dark:prism-okaidia&plugins=autoloader,line-numbers
+		</div>
+
+		<h2>Examples with Custom Theme</h2>
+
+		<pre><code class="language-jsx">// React Component Example
+import React, { useState, useEffect } from 'react';
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `Count: ${count}`;
+  }, [count]);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        Increment
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+    </code></pre>
+
+		<pre><code class="language-rust">// Rust Example
+fn main() {
+    let numbers = vec![1, 2, 3, 4, 5];
+    
+    let sum: i32 = numbers.iter().sum();
+    println!("Sum: {}", sum);
+    
+    let doubled: Vec&lt;i32&gt; = numbers
+        .iter()
+        .map(|x| x * 2)
+        .collect();
+    
+    println!("Doubled: {:?}", doubled);
+}
+    </code></pre>
+
+		<!-- Custom configuration via query string -->
+		<script src="../dist/highlight-it.js?theme=light:prism-tomorrow,dark:prism-okaidia&plugins=autoloader,line-numbers"
+				defer></script>
+	</body>
+
+</html>

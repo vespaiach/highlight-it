@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>highlight-it - Configuration Packs Demo</title>
+		<style>
+			body {
+				font-family: system-ui, -apple-system, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+
+			.example {
+				margin: 30px 0;
+				border: 1px solid #ddd;
+				padding: 20px;
+				border-radius: 8px;
+			}
+
+			h2 {
+				color: #333;
+				margin-top: 0;
+			}
+
+			.description {
+				color: #666;
+				margin-bottom: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>highlight-it Configuration Packs Demo</h1>
+		<p>This page demonstrates the configuration packs available in highlight-it.</p>
+		<p><strong>Using:</strong> ?config=complete</p>
+
+		<div class="example">
+			<h2>Complete Pack</h2>
+			<p class="description">Full-featured setup with line numbers, autoloader, and enhanced themes</p>
+			<pre><code class="language-javascript">// JavaScript Example
+const greet = (name) => {
+  console.log(`Hello, ${name}!`);
+};
+
+greet('World');
+      </code></pre>
+		</div>
+
+		<div class="example">
+			<h2>Python Example</h2>
+			<pre><code class="language-python"># Python Example
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+      </code></pre>
+		</div>
+
+		<div class="example">
+			<h2>TypeScript Example</h2>
+			<pre><code class="language-typescript">interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const createUser = (data: Partial&lt;User&gt;): User => {
+  return {
+    id: Math.random(),
+    name: data.name || 'Anonymous',
+    email: data.email || 'no-email@example.com',
+  };
+};
+      </code></pre>
+		</div>
+
+		<!-- Using the complete configuration pack -->
+		<script src="../dist/highlight-it.js?config=complete" defer></script>
+	</body>
+
+</html>
