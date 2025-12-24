@@ -1,27 +1,39 @@
 {
-  "name": "prismjs-loader",
-  "version": "1.0.1",
-  "description": "This script provides a fast and efficient way to integrate Prism.js syntax highlighting into web pages.",
-  "homepage": "https://github.com/vespaiach/prismjs-loader#readme",
+  "name": "highlight-it",
+  "version": "2.0.0",
+  "description": "A simple, engine-agnostic syntax highlighting loader for web pages. Just include one script and you're done.",
+  "homepage": "https://github.com/vespaiach/highlight-it#readme",
   "bugs": {
-    "url": "https://github.com/vespaiach/prismjs-loader/issues"
+    "url": "https://github.com/vespaiach/highlight-it/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vespaiach/prismjs-loader.git"
+    "url": "git+https://github.com/vespaiach/highlight-it.git"
   },
   "license": "MIT",
   "author": "Trinh Nguyen <nta.toan@gmail.com>",
+  "keywords": [
+    "syntax",
+    "highlighting",
+    "prism",
+    "code",
+    "highlight",
+    "loader"
+  ],
   "type": "commonjs",
-  "main": "prismjs-loader.js",
+  "main": "highlight-it.js",
   "scripts": {
     "test": "http-server",
-    "build": "node build.js"
+    "build": "node build.js",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
     "http-server": "^14.1.1"
   },
   "devDependencies": {
-    "esbuild": "^0.25.1"
+    "@types/node": "^25.0.3",
+    "esbuild": "^0.25.1",
+    "typescript": "^5.9.3"
   }
 }
