@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Web Worker Test - highlight-it</title>
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+					Oxygen, Ubuntu, Cantarell, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+				background: #f5f5f5;
+			}
+
+			h1 {
+				color: #333;
+			}
+
+			.test-section {
+				background: white;
+				padding: 20px;
+				margin: 20px 0;
+				border-radius: 8px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			.status {
+				padding: 10px;
+				border-radius: 4px;
+				margin: 10px 0;
+				font-weight: bold;
+			}
+
+			.status.success {
+				background: #d4edda;
+				color: #155724;
+			}
+
+			.status.error {
+				background: #f8d7da;
+				color: #721c24;
+			}
+
+			.status.info {
+				background: #d1ecf1;
+				color: #0c5460;
+			}
+
+			pre[class*="language-"] {
+				margin: 10px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>🚀 Web Worker Test - highlight-it</h1>
+
+		<div class="test-section">
+			<h2>Status</h2>
+			<div id="status" class="status info">Initializing...</div>
+		</div>
+
+		<div class="test-section">
+			<h2>JavaScript Code Example</h2>
+			<pre><code class="language-javascript">// Example JavaScript code
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log('Fibonacci of 10:', fibonacci(10));
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>Python Code Example</h2>
+			<pre><code class="language-python"># Example Python code
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
+
+print(quicksort([3, 6, 8, 10, 1, 2, 1]))
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>HTML Code Example</h2>
+			<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;Example Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+    &lt;p&gt;This is an example HTML document.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>CSS Code Example</h2>
+			<pre><code class="language-css">/* Example CSS code */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+</code></pre>
+		</div>
+
+		<script type="module">
+			// Check if worker is being used
+			setTimeout(() => {
+				const statusEl = document.getElementById("status");
+				const highlighter = window.__highlightItInstance;
+
+				if (!highlighter) {
+					statusEl.textContent = "❌ Highlighter not initialized";
+					statusEl.className = "status error";
+					return;
+				}
+
+				// Check if using worker or main thread
+				const isWorkerMode = highlighter.worker !== null && highlighter.worker !== undefined && !highlighter.useMainThread;
+
+				if (isWorkerMode) {
+					statusEl.textContent =
+						"✅ Web Worker mode active - Highlighting runs off main thread!";
+					statusEl.className = "status success";
+				} else {
+					statusEl.textContent =
+						"ℹ️ Main thread mode - Web Workers not available or failed to initialize";
+					statusEl.className = "status info";
+				}
+
+				// Log additional info
+				console.log("Highlighter instance:", highlighter);
+				console.log("Worker mode:", isWorkerMode);
+				console.log("Prism available:", !!window.Prism);
+			}, 1000);
+		</script>
+
+		<!-- Load highlight-it with complete pack -->
+		<script type="module" src="../highlight-it.js?pack=complete"></script>
+	</body>
+
+</html>

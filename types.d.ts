@@ -7,6 +7,7 @@
 declare global {
 	interface Window {
 		__highlightItInitialized?: boolean;
+		__highlightItInstance?: Highlighter;
 		Prism?: PrismAPI;
 	}
 }
@@ -194,5 +195,44 @@ export type ParseThemeFunction = (themeStr: string) => ThemeConfig;
 export type ParseThemeFromClassesFunction = (
 	classList: DOMTokenList
 ) => ThemeConfig;
+
+// ==================== Web Worker Types ====================
+
+/**
+ * Message sent from main thread to worker
+ */
+export interface WorkerMessage {
+	type: "init" | "highlight";
+	config?: HighlightConfig;
+	code?: string;
+	language?: string;
+	id?: string;
+}
+
+/**
+ * Response sent from worker to main thread
+ */
+export interface WorkerResponse {
+	type: string;
+	success: boolean;
+	code?: string;
+	error?: string;
+	id?: string;
+}
+
+/**
+ * Highlighting mode - either worker or main thread
+ */
+export type HighlightMode = "worker" | "main";
+
+/**
+ * Highlighter interface for both worker and main thread modes
+ */
+export interface Highlighter {
+	initialize(config: HighlightConfig): Promise<void>;
+	highlightAll(): Promise<void>;
+	highlightElement(element: Element): Promise<void>;
+	destroy(): void;
+}
 
 export { };

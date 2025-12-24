@@ -15,10 +15,23 @@ That's it! Your code blocks will be automatically highlighted.
 ## Features
 
 - 🚀 **Zero Configuration** - Works out of the box with sensible defaults
+- ⚡ **Web Worker Support** - Runs highlighting off the main thread for better performance
 - 🎨 **Multiple Themes** - Built-in light and dark mode support
 - 🔌 **Engine Agnostic** - Currently uses Prism.js, but designed to support multiple engines
 - 📦 **Configuration Packs** - Pre-configured setups for different use cases
 - 🎯 **Simple API** - Configure everything via query parameters
+- 🔄 **Automatic Fallback** - Gracefully falls back to main thread if workers aren't available
+
+## Performance
+
+The library automatically uses Web Workers when available, moving the computationally intensive highlighting operations off the main thread. This results in:
+
+- ✅ Non-blocking UI rendering
+- ✅ Smoother user interactions
+- ✅ Better responsiveness on pages with large code blocks
+- ✅ Automatic fallback to main thread for compatibility
+
+See [WEB_WORKER_README.md](./WEB_WORKER_README.md) for technical details.
 
 ## Configuration Packs
 

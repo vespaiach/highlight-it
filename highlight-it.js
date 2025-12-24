@@ -6,6 +6,7 @@
 /** @typedef {import('./types').CustomConfig} CustomConfig */
 
 import ENGINES from "./engines/index.js";
+import { createHighlighter } from "./highlighter.js";
 
 (async function () {
   if (typeof document === "undefined") {
@@ -224,8 +225,14 @@ import ENGINES from "./engines/index.js";
       finalConfig = config;
     }
 
-    await engine.initialize(finalConfig, addElement, waitForCondition);
-    await engine.highlight();
+    // Create highlighter with worker support
+    const highlighter = createHighlighter(engine, addElement, waitForCondition);
+
+    // Store highlighter globally for potential external access
+    window.__highlightItInstance = highlighter;
+
+    await highlighter.initialize(finalConfig);
+    await highlighter.highlightAll();
   } catch (error) {
     console.error("highlight-it error:", error);
   }
