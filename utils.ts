@@ -13,7 +13,6 @@ export function addElement(resource: { tagName: "script" | "link"; src: string }
 			}
 			element.rel = "stylesheet";
 			element.href = src;
-			debugger
 			document.head.appendChild(element);
 		} else {
 			const element = document.createElement("script");
