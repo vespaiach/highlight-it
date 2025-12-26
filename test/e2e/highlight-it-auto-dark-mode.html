@@ -228,8 +228,7 @@ echo "Deployment completed successfully!"
 		<script>
 			// Display current theme detection
 			window.addEventListener("load", () => {
-				const isDark = window.matchMedia &&
-					window.matchMedia("(prefers-color-scheme: dark)").matches;
+				const isDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
 
 				console.log("System prefers dark mode:", isDark);
 				console.log("highlight-it will use:", isDark ? "dark theme" : "light theme");
@@ -237,7 +236,7 @@ echo "Deployment completed successfully!"
 		</script>
 
 		<!-- Load highlight-it with complete pack and auto dark mode detection -->
-		<script src="../dist/highlight-it.js?pack=complete"></script>
+		<script src="../dist/highlight-it.js?darkMode=dark&verbose=true"></script>
 	</body>
 
 </html>

@@ -17,7 +17,11 @@
     "rootDir": "./",
     "allowJs": true,
     "checkJs": true,
-    "maxNodeModuleJsDepth": 1
+    "maxNodeModuleJsDepth": 1,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "**/*.ts",

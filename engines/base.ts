@@ -1,43 +1,45 @@
+import { appendToBody, assertString } from '@/utils';
+import type { Resource } from '../type';
+
 /**
  * Prism.js Engine
  * Syntax highlighting engine powered by Prism.js
  */
 export default abstract class BaseEngine {
+    private static loadedResources = new Set<string>();
 
     abstract initialize(): Promise<void>;
 
     abstract highlight(): Promise<void>;
 
-    public appendTo(resource: { tagName: 'script' | 'link'; src: string }, place: 'head' | 'body' = 'head'): Promise<void> {
-        const { tagName, src } = resource;
-
-        let resolve: () => void;
-        let reject: (error: Error) => void;
-        const promise = new Promise<void>((res, rej) => {
-            [resolve, reject] = [res, rej];
-        });
-
-        let element: HTMLScriptElement | HTMLLinkElement;
-        if (tagName === 'link') {
-            element = document.createElement('link');
-            element.rel = 'stylesheet';
-            element.href = src;
-        } else {
-            element = document.createElement('script');
-            element.defer = true;
-            element.src = src;
+    public async loadResource(resource: Resource): Promise<void> {
+        // Check if this resource is already loaded
+        if (BaseEngine.isResourceLoaded(resource)) {
+            return;
         }
-        element.onload = () => {
-            resolve();
-        };
-        element.onerror = () => {
-            reject(new Error(`Failed to load ${tagName}: ${src}`));
-        };
 
-        if (place === 'body') document.body.appendChild(element);
-        else document.head.appendChild(element);
+        // If there are dependencies, wait for them to load first
+        if (resource.dependencies && resource.dependencies.length > 0) {
+            await Promise.all(resource.dependencies.map((dep) => this.loadResource(dep)));
+        }
 
-        return promise;
+        // Load the current resource and mark it as loaded
+        assertString(resource.script) && (await appendToBody({ tagName: 'script', src: resource.script }));
+        assertString(resource.link) && (await appendToBody({ tagName: 'link', src: resource.link }));
+
+        BaseEngine.addResourceLoaded(resource);
+    }
+
+    public static isResourceLoaded(resource: Resource): boolean {
+        return (
+            (assertString(resource.script) && BaseEngine.loadedResources.has(resource.script)) ||
+            (assertString(resource.link) && BaseEngine.loadedResources.has(resource.link))
+        );
+    }
+
+    public static addResourceLoaded(resource: Resource) {
+        assertString(resource.script) && BaseEngine.loadedResources.has(resource.script);
+        assertString(resource.link) && BaseEngine.loadedResources.has(resource.link);
     }
 
     /**

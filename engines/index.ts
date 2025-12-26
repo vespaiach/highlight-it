@@ -1,4 +1,4 @@
-import PrismEngine from "./prism.js";
+import PrismEngine from "./prism/index.js";
 
 export {
     PrismEngine

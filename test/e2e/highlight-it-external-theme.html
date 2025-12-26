@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>highlight-it - External Theme Test</title>
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+				background: #282c34;
+				color: #abb2bf;
+			}
+
+			h1 {
+				color: #61afef;
+				border-bottom: 2px solid #61afef;
+				padding-bottom: 10px;
+			}
+
+			.test-section {
+				background: #21252b;
+				padding: 20px;
+				margin: 20px 0;
+				border-radius: 8px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+			}
+
+			.test-section h2 {
+				color: #e5c07b;
+				margin-top: 0;
+			}
+
+			.info-box {
+				background: #3e4451;
+				border-left: 4px solid #98c379;
+				padding: 15px;
+				margin: 15px 0;
+				border-radius: 4px;
+			}
+
+			.info-box strong {
+				color: #98c379;
+			}
+
+			.info-box code {
+				background: #282c34;
+				color: #e06c75;
+				padding: 2px 6px;
+				border-radius: 3px;
+				font-family: "Fira Code", "Consolas", monospace;
+			}
+
+			pre[class*="language-"] {
+				margin: 15px 0;
+				border-radius: 6px;
+			}
+
+			.theme-list {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 10px;
+				margin: 15px 0;
+			}
+
+			.theme-item {
+				background: #3e4451;
+				padding: 8px 12px;
+				border-radius: 4px;
+				font-size: 14px;
+				color: #c678dd;
+			}
+
+			.theme-selector {
+				margin: 20px 0;
+				padding: 15px;
+				background: #3e4451;
+				border-radius: 6px;
+			}
+
+			.theme-selector label {
+				display: block;
+				margin-bottom: 10px;
+				font-weight: 600;
+				color: #61afef;
+				font-size: 16px;
+			}
+
+			.theme-selector select {
+				width: 100%;
+				max-width: 400px;
+				padding: 10px 15px;
+				font-size: 15px;
+				border: 2px solid #4b5363;
+				border-radius: 6px;
+				background: #282c34;
+				color: #abb2bf;
+				cursor: pointer;
+				transition: border-color 0.2s, background-color 0.2s;
+			}
+
+			.theme-selector select:hover {
+				border-color: #61afef;
+				background: #21252b;
+			}
+
+			.theme-selector select:focus {
+				outline: none;
+				border-color: #98c379;
+				box-shadow: 0 0 0 3px rgba(152, 195, 121, 0.2);
+			}
+
+			.theme-selector select option {
+				background: #282c34;
+				color: #abb2bf;
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>🎨 highlight-it - External Theme Test</h1>
+
+		<div class="test-section">
+			<div class="theme-selector">
+				<label for="themeSelect">🎨 Select External Theme:</label>
+				<select id="themeSelect">
+					<option value="a11y-dark">A11y Dark</option>
+					<option value="atom-dark">Atom Dark</option>
+					<option value="base16-ateliersulphurpool.light">Base16 Atelier Sulphurpool Light</option>
+					<option value="cb">CB</option>
+					<option value="coldark-cold">Coldark Cold</option>
+					<option value="coldark-dark">Coldark Dark</option>
+					<option value="coy-without-shadows">Coy Without Shadows</option>
+					<option value="darcula">Darcula</option>
+					<option value="dracula">Dracula</option>
+					<option value="duotone-dark">Duotone Dark</option>
+					<option value="duotone-earth">Duotone Earth</option>
+					<option value="duotone-forest">Duotone Forest</option>
+					<option value="duotone-light">Duotone Light</option>
+					<option value="duotone-sea">Duotone Sea</option>
+					<option value="duotone-space">Duotone Space</option>
+					<option value="ghcolors">GitHub Colors</option>
+					<option value="gruvbox-dark">Gruvbox Dark</option>
+					<option value="gruvbox-light">Gruvbox Light</option>
+					<option value="holi-theme">Holi Theme</option>
+					<option value="hopscotch">Hopscotch</option>
+					<option value="laserwave">Laserwave</option>
+					<option value="lucario">Lucario</option>
+					<option value="material-dark">Material Dark</option>
+					<option value="material-light">Material Light</option>
+					<option value="material-oceanic">Material Oceanic</option>
+					<option value="night-owl">Night Owl</option>
+					<option value="nord">Nord</option>
+					<option value="one-dark" selected>One Dark</option>
+					<option value="one-light">One Light</option>
+					<option value="pojoaque">Pojoaque</option>
+					<option value="shades-of-purple">Shades of Purple</option>
+					<option value="solarized-dark-atom">Solarized Dark Atom</option>
+					<option value="synthwave84">Synthwave '84</option>
+					<option value="vs">VS</option>
+					<option value="vsc-dark-plus">VS Code Dark+</option>
+					<option value="xonokai">Xonokai</option>
+					<option value="z-touch">Z-Touch</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>About External Themes</h2>
+			<div class="info-box">
+				<strong>What are external themes?</strong>
+				<p>
+					External themes are loaded from the <code>prism-themes</code> repository,
+					which provides additional community-created themes beyond the built-in Prism themes.
+					This test uses the <code>one-dark</code> theme inspired by Atom's One Dark theme.
+				</p>
+				<p>
+					<strong>Current theme:</strong> <code>theme=one-dark</code><br />
+					<strong>Source:</strong> PrismJS/prism-themes repository
+				</p>
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>Popular External Themes</h2>
+			<div class="theme-list">
+				<div class="theme-item">atom-dark</div>
+				<div class="theme-item">dracula</div>
+				<div class="theme-item">one-dark</div>
+				<div class="theme-item">one-light</div>
+				<div class="theme-item">material-dark</div>
+				<div class="theme-item">material-light</div>
+				<div class="theme-item">night-owl</div>
+				<div class="theme-item">nord</div>
+				<div class="theme-item">vsc-dark-plus</div>
+				<div class="theme-item">synthwave84</div>
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>TypeScript Example</h2>
+			<pre><code class="language-typescript">// TypeScript interfaces and generics
+interface Repository&lt;T&gt; {
+  findById(id: string): Promise&lt;T | null&gt;;
+  findAll(filter?: Partial&lt;T&gt;): Promise&lt;T[]&gt;;
+  save(entity: T): Promise&lt;T&gt;;
+  delete(id: string): Promise&lt;boolean&gt;;
+}
+
+class UserRepository implements Repository&lt;User&gt; {
+  constructor(private db: Database) {}
+
+  async findById(id: string): Promise&lt;User | null&gt; {
+    const result = await this.db.query(
+      'SELECT * FROM users WHERE id = $1',
+      [id]
+    );
+    return result.rows[0] || null;
+  }
+
+  async findAll(filter?: Partial&lt;User&gt;): Promise&lt;User[]&gt; {
+    // Implementation here
+    return [];
+  }
+
+  async save(user: User): Promise&lt;User&gt; {
+    // Implementation here
+    return user;
+  }
+
+  async delete(id: string): Promise&lt;boolean&gt; {
+    const result = await this.db.query(
+      'DELETE FROM users WHERE id = $1',
+      [id]
+    );
+    return result.rowCount > 0;
+  }
+}
+
+// Usage with dependency injection
+const userRepo = new UserRepository(database);
+const user = await userRepo.findById('user-123');
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>React Component with Hooks</h2>
+			<pre><code class="language-jsx">import React, { useState, useEffect, useCallback } from 'react';
+import { debounce } from 'lodash';
+
+/**
+ * SearchableUserList - A searchable user list component
+ * Demonstrates hooks, debouncing, and async data fetching
+ */
+function SearchableUserList() {
+  const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Debounced search function
+  const searchUsers = useCallback(
+    debounce(async (term) => {
+      if (!term.trim()) {
+        setUsers([]);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await fetch(
+          `/api/users/search?q=${encodeURIComponent(term)}`
+        );
+        
+        if (!response.ok) {
+          throw new Error(`Search failed: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        setUsers(data.users);
+      } catch (err) {
+        setError(err.message);
+        setUsers([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 300),
+    []
+  );
+
+  useEffect(() => {
+    searchUsers(searchTerm);
+    
+    // Cleanup
+    return () => searchUsers.cancel();
+  }, [searchTerm, searchUsers]);
+
+  return (
+    &lt;div className="user-search"&gt;
+      &lt;input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search users..."
+        className="search-input"
+      /&gt;
+      
+      {loading && &lt;div className="spinner"&gt;Loading...&lt;/div&gt;}
+      
+      {error && (
+        &lt;div className="error-message"&gt;
+          Error: {error}
+        &lt;/div&gt;
+      )}
+      
+      &lt;ul className="user-list"&gt;
+        {users.map((user) => (
+          &lt;li key={user.id}&gt;
+            &lt;strong&gt;{user.name}&lt;/strong&gt; - {user.email}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default SearchableUserList;
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>Python Async Example</h2>
+			<pre><code class="language-python">import asyncio
+import aiohttp
+from typing import List, Dict, Optional
+from dataclasses import dataclass
+from datetime import datetime
+
+@dataclass
+class Article:
+    id: int
+    title: str
+    author: str
+    published_at: datetime
+    content: str
+
+class ArticleService:
+    """Service for fetching and managing articles asynchronously"""
+    
+    def __init__(self, api_base_url: str):
+        self.api_base_url = api_base_url
+        self.session: Optional[aiohttp.ClientSession] = None
+    
+    async def __aenter__(self):
+        self.session = aiohttp.ClientSession()
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if self.session:
+            await self.session.close()
+    
+    async def fetch_article(self, article_id: int) -> Optional[Article]:
+        """Fetch a single article by ID"""
+        if not self.session:
+            raise RuntimeError("Session not initialized. Use async context manager.")
+        
+        url = f"{self.api_base_url}/articles/{article_id}"
+        
+        try:
+            async with self.session.get(url) as response:
+                response.raise_for_status()
+                data = await response.json()
+                
+                return Article(
+                    id=data['id'],
+                    title=data['title'],
+                    author=data['author'],
+                    published_at=datetime.fromisoformat(data['published_at']),
+                    content=data['content']
+                )
+        except aiohttp.ClientError as e:
+            print(f"Error fetching article {article_id}: {e}")
+            return None
+    
+    async def fetch_multiple_articles(
+        self, 
+        article_ids: List[int]
+    ) -> List[Article]:
+        """Fetch multiple articles concurrently"""
+        tasks = [self.fetch_article(aid) for aid in article_ids]
+        results = await asyncio.gather(*tasks)
+        
+        # Filter out None values (failed requests)
+        return [article for article in results if article is not None]
+
+# Usage example
+async def main():
+    async with ArticleService("https://api.example.com") as service:
+        # Fetch multiple articles concurrently
+        article_ids = [1, 2, 3, 4, 5]
+        articles = await service.fetch_multiple_articles(article_ids)
+        
+        for article in articles:
+            print(f"Title: {article.title}")
+            print(f"Author: {article.author}")
+            print(f"Published: {article.published_at}")
+            print("-" * 50)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+</code></pre>
+		</div>
+
+		<div class="test-section">
+			<h2>Go Concurrent Programming</h2>
+			<pre><code class="language-go">package main
+
+import (
+	"context"
+	"fmt"
+	"sync"
+	"time"
+)
+
+// Worker represents a concurrent worker
+type Worker struct {
+	id      int
+	tasks   chan Task
+	results chan Result
+	wg      *sync.WaitGroup
+}
+
+// Task represents a unit of work
+type Task struct {
+	ID   int
+	Data string
+}
+
+// Result represents the outcome of a task
+type Result struct {
+	TaskID int
+	Output string
+	Error  error
+}
+
+// NewWorker creates a new worker
+func NewWorker(id int, tasks chan Task, results chan Result, wg *sync.WaitGroup) *Worker {
+	return &Worker{
+		id:      id,
+		tasks:   tasks,
+		results: results,
+		wg:      wg,
+	}
+}
+
+// Start begins processing tasks
+func (w *Worker) Start(ctx context.Context) {
+	defer w.wg.Done()
+	
+	for {
+		select {
+		case task, ok := <-w.tasks:
+			if !ok {
+				fmt.Printf("Worker %d: Task channel closed, exiting\n", w.id)
+				return
+			}
+			
+			fmt.Printf("Worker %d: Processing task %d\n", w.id, task.ID)
+			
+			// Simulate work
+			time.Sleep(time.Millisecond * 500)
+			
+			result := Result{
+				TaskID: task.ID,
+				Output: fmt.Sprintf("Processed by worker %d: %s", w.id, task.Data),
+			}
+			
+			w.results <- result
+			
+		case <-ctx.Done():
+			fmt.Printf("Worker %d: Context cancelled, exiting\n", w.id)
+			return
+		}
+	}
+}
+
+func main() {
+	const numWorkers = 3
+	const numTasks = 10
+	
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	
+	tasks := make(chan Task, numTasks)
+	results := make(chan Result, numTasks)
+	
+	var wg sync.WaitGroup
+	
+	// Start workers
+	for i := 1; i <= numWorkers; i++ {
+		wg.Add(1)
+		worker := NewWorker(i, tasks, results, &wg)
+		go worker.Start(ctx)
+	}
+	
+	// Send tasks
+	go func() {
+		for i := 1; i <= numTasks; i++ {
+			tasks <- Task{
+				ID:   i,
+				Data: fmt.Sprintf("Task data %d", i),
+			}
+		}
+		close(tasks)
+	}()
+	
+	// Collect results in a separate goroutine
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+	
+	// Process results
+	for result := range results {
+		if result.Error != nil {
+			fmt.Printf("Task %d failed: %v\n", result.TaskID, result.Error)
+		} else {
+			fmt.Printf("Task %d completed: %s\n", result.TaskID, result.Output)
+		}
+	}
+	
+	fmt.Println("All tasks completed")
+}
+</code></pre>
+		</div>
+
+		<script>
+			// Get current theme from URL or default to one-dark
+			function getCurrentTheme() {
+				const urlParams = new URLSearchParams(window.location.search);
+				return urlParams.get('theme') || 'one-dark';
+			}
+
+			// Set the dropdown to the current theme
+			function initThemeSelector() {
+				const currentTheme = getCurrentTheme();
+				const themeSelect = document.getElementById('themeSelect');
+				
+				if (themeSelect) {
+					themeSelect.value = currentTheme;
+					
+					// Update info box with current theme
+					const themeCode = document.querySelector('.info-box code:first-of-type');
+					if (themeCode) {
+						themeCode.textContent = `theme=${currentTheme}`;
+					}
+				}
+			}
+
+			// Handle theme change
+			function changeTheme(event) {
+				const selectedTheme = event.target.value;
+				const url = new URL(window.location);
+				url.searchParams.set('theme', selectedTheme);
+				window.location.href = url.toString();
+			}
+
+			// Display theme information on load
+			window.addEventListener("load", () => {
+				const currentTheme = getCurrentTheme();
+				console.log(`highlight-it loaded with external theme: ${currentTheme}`);
+				console.log("External themes are loaded from: https://cdn.jsdelivr.net/gh/PrismJS/prism-themes");
+				
+				// Initialize theme selector
+				initThemeSelector();
+				
+				// Add event listener for theme changes
+				const themeSelect = document.getElementById('themeSelect');
+				if (themeSelect) {
+					themeSelect.addEventListener('change', changeTheme);
+				}
+			});
+		</script>
+
+		<!-- Load highlight-it with external theme -->
+		<script>
+			// Dynamically load highlight-it with selected theme
+			(() => {
+				const urlParams = new URLSearchParams(window.location.search);
+				const theme = urlParams.get('theme') || 'one-dark';
+				const script = document.createElement('script');
+				script.src = `../../dist/highlight-it.js?theme=${theme}&verbose=true`;
+				document.currentScript.parentNode.insertBefore(script, document.currentScript.nextSibling);
+			})();
+		</script>
+	</body>
+
+</html>

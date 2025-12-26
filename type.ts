@@ -1,35 +1,29 @@
 /**
- * Type definitions for highlight-it
- */
-
-export interface Resource {
-	tagName: "script" | "link";
-	src: string;
-}
-
-
-
-/**
  * Custom configuration with theme and plugins
  */
-export interface CustomConfig {
-	theme: string;
-	darkMode?: string | null;
+export interface EngineInputs {
+    theme: string;
+    darkMode?: string | null;
+}
+
+export interface Resource {
+    script?: string;
+    link?: string;
+	dependencies?: Resource[];
 }
 
 /**
  * Highlighting engine interface
  */
 export interface HighlightEngine {
-	/**
-	 * Initialize the engine with configuration
-	 * @param config - Engine configuration
-	 */
-	initialize(config: CustomConfig): Promise<void>;
+    /**
+     * Initialize the engine with configuration
+     * @param config - Engine configuration
+     */
+    initialize(config: EngineInputs): Promise<void>;
 
-	/**
-	 * Execute syntax highlighting
-	 */
-	highlight(): Promise<void>;
+    /**
+     * Execute syntax highlighting
+     */
+    highlight(): Promise<void>;
 }
-
