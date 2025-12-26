@@ -8,13 +8,13 @@ export interface Resource {
 }
 
 
+
 /**
  * Custom configuration with theme and plugins
  */
 export interface CustomConfig {
-	pack?: 'minimal' | 'complete';
-	darkMode?: boolean;
-	verbose: boolean;
+	theme: string;
+	darkMode?: string | null;
 }
 
 /**

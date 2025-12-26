@@ -1,7 +1,7 @@
-import prism from "./prism.js";
+import PrismEngine from "./prism.js";
 
-export default {
-    prism,
+export {
+    PrismEngine
     // Future engines:
     // highlightjs: () => import('./highlightjs.js'),
     // shiki: () => import('./shiki.js'),

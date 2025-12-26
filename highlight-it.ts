@@ -3,13 +3,13 @@
  * Parses script URL parameters and initializes the highlighting engine
  */
 
-import type { CustomConfig } from "./type";
-import engines from "./engines";
-import { setVerbose, log, warn, error as logError } from "./utils";
+import { PrismEngine } from './engines';
+import type { CustomConfig } from './type';
+import { log, setVerbose, error as logError, warn } from './utils';
 
-(async function () {
+(async () => {
     // Only run in browser environment
-    if (typeof document === "undefined") {
+    if (typeof document === 'undefined') {
         return;
     }
 
@@ -23,14 +23,14 @@ import { setVerbose, log, warn, error as logError } from "./utils";
      * Parses configuration from the script's URL parameters
      * Extracts 'pack' and 'darkmode' parameters
      */
-    function parseScriptParams(): CustomConfig {
+    function parseScriptParams() {
         const scriptElement = document.currentScript;
 
         // Default configuration
-        const config: CustomConfig = {
-            pack: "minimal",
-            darkMode: false,
-            verbose: false,
+        const config: CustomConfig & { verbose: boolean } = {
+            theme: 'prism',
+            darkMode: '',
+            verbose: false
         };
 
         // Parse URL parameters if script element is available
@@ -39,34 +39,20 @@ import { setVerbose, log, warn, error as logError } from "./utils";
                 const url = new URL(scriptElement.src);
 
                 // Get pack parameter (config or pack)
-                const packParam = url.searchParams.get("pack") || url.searchParams.get("config");
-                if (packParam && (packParam === "minimal" || packParam === "complete")) {
-                    config.pack = packParam;
-                }
+                config.theme = url.searchParams.get('theme') || url.searchParams.get('config') || 'prism';
 
                 // Get darkmode parameter
-                const darkModeParam = url.searchParams.get("darkmode") || url.searchParams.get("darkMode");
-                if (darkModeParam) {
-                    // Accept: true, 1, yes, on
-                    config.darkMode = ["true", "1", "yes", "on"].includes(darkModeParam.toLowerCase());
-                } else {
-                    // Auto-detect dark mode from system preference
-                    config.darkMode = window.matchMedia &&
-                        window.matchMedia("(prefers-color-scheme: dark)").matches;
-                }
+                config.darkMode = url.searchParams.get('darkmode') || url.searchParams.get('darkMode');
 
                 // Get verbose parameter
-                const verboseParam = url.searchParams.get("verbose");
+                const verboseParam = url.searchParams.get('verbose');
                 if (verboseParam) {
-                    config.verbose = ["true", "1", "yes", "on"].includes(verboseParam.toLowerCase());
+                    config.verbose = ['true', '1', 'yes', 'on'].includes(verboseParam.toLowerCase());
                 }
             } catch (error) {
-                warn("Failed to parse script URL:", error);
+                warn('Failed to parse script URL:', error);
+                return config;
             }
-        } else {
-            // Auto-detect dark mode if no script element
-            config.darkMode = window.matchMedia &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches;
         }
 
         return config;
@@ -74,27 +60,22 @@ import { setVerbose, log, warn, error as logError } from "./utils";
 
     // ==================== Main Execution ====================
     try {
-        // TODO: Support multiple engines in the future
-        const DEFAULT_ENGINE = 'prism';
+        const { theme, darkMode, verbose } = parseScriptParams();
+        setVerbose(verbose);
 
-        const config = parseScriptParams();
-
-        // Set verbose mode for logger
-        setVerbose(config.verbose);
-
-        log("highlight-it initialized with config:", config);
+        log('highlight-it initialized with config:', { theme, darkMode, verbose });
 
         // Load the engine (currently only Prism.js is supported)
-        const engine = engines[DEFAULT_ENGINE];
+        const engine = new PrismEngine({ theme, darkMode });
 
         // Initialize the engine with parsed configuration
-        await engine.initialize(config);
+        await engine.initialize();
 
         // Trigger syntax highlighting
         await engine.highlight();
 
-        log("highlight-it: Code highlighting completed");
+        log('highlight-it: Code highlighting completed');
     } catch (err) {
-        logError("highlight-it error:", err);
+        logError('highlight-it error:', err);
     }
 })();
