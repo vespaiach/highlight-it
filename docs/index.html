@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>highlight-it - Zero-Config Syntax Highlighting</title>
+    <meta name="description" content="A simple, engine-agnostic syntax highlighting library for web pages. Just include one script and you're done." />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --code-bg: #1e293b;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .github-link {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .github-link:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 0;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Theme Selector */
+        .theme-selector {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .theme-selector label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .theme-selector select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .theme-selector select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Code Preview */
+        .code-preview {
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .code-preview-header {
+            background: var(--code-bg);
+            color: white;
+            padding: 12px 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-preview-header::before {
+            content: "●●●";
+            letter-spacing: 2px;
+            opacity: 0.5;
+        }
+
+        .code-preview pre {
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+
+        /* Script Tag Display */
+        .script-tag-container {
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .script-tag-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .script-tag-header h3 {
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .copy-btn.copied {
+            background: #10b981;
+        }
+
+        .script-tag-code {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            word-break: break-all;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Loader */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+        }
+
+        .loader.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>✨ highlight-it</h1>
+            <p>Zero-config syntax highlighting for web pages. Just include one script and you're done.</p>
+            <a href="https://github.com/vespaiach/highlight-it" class="github-link" target="_blank">
+                View on GitHub →
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Theme Selector Section -->
+            <section class="section">
+                <h2>🎨 Try Different Themes</h2>
+                <p>Select a theme to see how it looks and get the ready-to-use script tag for your website.</p>
+
+                <div class="theme-selector">
+                    <label for="themeSelect">Choose a Theme:</label>
+                    <select id="themeSelect">
+                        <optgroup label="Built-in Themes">
+                            <option value="prism">Prism (Default)</option>
+                            <option value="coy">Coy</option>
+                            <option value="dark">Dark</option>
+                            <option value="funky">Funky</option>
+                            <option value="okaidia">Okaidia</option>
+                            <option value="solarizedlight">Solarized Light</option>
+                            <option value="tomorrow">Tomorrow</option>
+                            <option value="twilight">Twilight</option>
+                        </optgroup>
+                        <optgroup label="Extended Themes">
+                            <option value="a11y-dark">A11y Dark</option>
+                            <option value="atom-dark">Atom Dark</option>
+                            <option value="base16-ateliersulphurpool.light">Base16 Atelier Sulphurpool Light</option>
+                            <option value="cb">CB</option>
+                            <option value="coldark-cold">Coldark Cold</option>
+                            <option value="coldark-dark">Coldark Dark</option>
+                            <option value="coy-without-shadows">Coy Without Shadows</option>
+                            <option value="darcula">Darcula</option>
+                            <option value="dracula">Dracula</option>
+                            <option value="duotone-dark">Duotone Dark</option>
+                            <option value="duotone-earth">Duotone Earth</option>
+                            <option value="duotone-forest">Duotone Forest</option>
+                            <option value="duotone-light">Duotone Light</option>
+                            <option value="duotone-sea">Duotone Sea</option>
+                            <option value="duotone-space">Duotone Space</option>
+                            <option value="ghcolors">GitHub Colors</option>
+                            <option value="gruvbox-dark">Gruvbox Dark</option>
+                            <option value="gruvbox-light">Gruvbox Light</option>
+                            <option value="holi-theme">Holi Theme</option>
+                            <option value="hopscotch">Hopscotch</option>
+                            <option value="laserwave">Laserwave</option>
+                            <option value="lucario">Lucario</option>
+                            <option value="material-dark">Material Dark</option>
+                            <option value="material-light">Material Light</option>
+                            <option value="material-oceanic">Material Oceanic</option>
+                            <option value="night-owl">Night Owl</option>
+                            <option value="nord">Nord</option>
+                            <option value="one-dark">One Dark</option>
+                            <option value="one-light">One Light</option>
+                            <option value="pojoaque">Pojoaque</option>
+                            <option value="shades-of-purple">Shades of Purple</option>
+                            <option value="solarized-dark-atom">Solarized Dark Atom</option>
+                            <option value="synthwave84">Synthwave '84</option>
+                            <option value="vs">VS</option>
+                            <option value="vsc-dark-plus">VS Code Dark+</option>
+                            <option value="xonokai">Xonokai</option>
+                            <option value="z-touch">Z-Touch</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- Script Tag Display -->
+                <div class="script-tag-container">
+                    <div class="script-tag-header">
+                        <h3>📋 Copy this to your HTML:</h3>
+                        <button class="copy-btn" id="copyBtn">Copy</button>
+                    </div>
+                    <div class="script-tag-code" id="scriptTag">
+                        <!-- Script tag will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div class="loader" id="loader">
+                    <p>Loading theme preview...</p>
+                </div>
+
+                <!-- Code Preview -->
+                <div class="code-preview" id="codePreview">
+                    <div class="code-preview-header">preview.js</div>
+                    <pre><code class="language-javascript">// JavaScript Example
+import { useState, useEffect } from 'react';
+
+/**
+ * A custom hook for managing async data fetching
+ * @param {string} url - The API endpoint to fetch from
+ * @returns {Object} - Contains data, loading, and error states
+ */
+function useAsyncData(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Usage example
+function UserProfile({ userId }) {
+  const { data: user, loading, error } = useAsyncData(
+    `https://api.example.com/users/${userId}`
+  );
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+  
+  return (
+    &lt;div className="profile"&gt;
+      &lt;h2&gt;{user.name}&lt;/h2&gt;
+      &lt;p&gt;{user.email}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default UserProfile;</code></pre>
+                </div>
+
+                <div class="code-preview">
+                    <div class="code-preview-header">styles.css</div>
+                    <pre><code class="language-css">/* Modern CSS with Custom Properties */
+:root {
+  --primary-color: #6366f1;
+  --secondary-color: #8b5cf6;
+  --text-color: #1e293b;
+  --bg-color: #ffffff;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--bg-color);
+}
+
+.card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+}</code></pre>
+                </div>
+
+                <div class="code-preview">
+                    <div class="code-preview-header">example.py</div>
+                    <pre><code class="language-python"># Python Example - Data Processing
+from typing import List, Dict, Optional
+import asyncio
+import aiohttp
+
+class DataProcessor:
+    """
+    A class for processing and transforming data asynchronously.
+    """
+    
+    def __init__(self, api_url: str, timeout: int = 30):
+        self.api_url = api_url
+        self.timeout = timeout
+        self._session: Optional[aiohttp.ClientSession] = None
+    
+    async def __aenter__(self):
+        """Async context manager entry."""
+        self._session = aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=self.timeout)
+        )
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Async context manager exit."""
+        if self._session:
+            await self._session.close()
+    
+    async def fetch_data(self, endpoint: str) -> Dict:
+        """
+        Fetch data from the API endpoint.
+        
+        Args:
+            endpoint: The API endpoint to fetch from
+            
+        Returns:
+            Dictionary containing the response data
+        """
+        url = f"{self.api_url}/{endpoint}"
+        async with self._session.get(url) as response:
+            response.raise_for_status()
+            return await response.json()
+    
+    async def process_batch(self, items: List[str]) -> List[Dict]:
+        """
+        Process multiple items concurrently.
+        
+        Args:
+            items: List of item IDs to process
+            
+        Returns:
+            List of processed results
+        """
+        tasks = [self.fetch_data(f"items/{item}") for item in items]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Filter out errors and process successful results
+        return [
+            self._transform(result) 
+            for result in results 
+            if not isinstance(result, Exception)
+        ]
+    
+    def _transform(self, data: Dict) -> Dict:
+        """Transform raw data into desired format."""
+        return {
+            'id': data.get('id'),
+            'name': data.get('name', '').title(),
+            'value': float(data.get('value', 0)),
+            'processed': True
+        }
+
+
+# Usage example
+async def main():
+    async with DataProcessor('https://api.example.com') as processor:
+        items = ['item1', 'item2', 'item3']
+        results = await processor.process_batch(items)
+        
+        for result in results:
+            print(f"Processed: {result['name']} - ${result['value']:.2f}")
+
+
+if __name__ == '__main__':
+    asyncio.run(main())</code></pre>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="section">
+                <h2>✨ Features</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>🚀 Zero Configuration</h3>
+                        <p>Just add one script tag to your HTML. No build process, no complex setup, no dependencies to manage.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎨 45+ Themes</h3>
+                        <p>Choose from a wide variety of built-in and extended themes. Switch themes with just a URL parameter.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🌙 Dark Mode Support</h3>
+                        <p>Automatic dark mode detection with customizable theme switching for light and dark preferences.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔌 Plugin Support</h3>
+                        <p>Built-in support for line numbers, line highlighting, copy-to-clipboard, and more.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📦 CDN Delivered</h3>
+                        <p>Served via jsDelivr CDN with SRI integrity checking for maximum security and performance.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔧 Engine Agnostic</h3>
+                        <p>Built with an extensible architecture that supports multiple highlighting engines (currently Prism.js).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start Section -->
+            <section class="section">
+                <h2>🚀 Quick Start</h2>
+                <p>Getting started is as simple as 1-2-3:</p>
+                
+                <div class="feature-card" style="margin-top: 20px;">
+                    <h3 style="color: var(--text); margin-bottom: 15px;">1. Add the script to your HTML</h3>
+                    <pre style="background: var(--code-bg); color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>&lt;script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js"
+        crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
+                </div>
+
+                <div class="feature-card" style="margin-top: 20px;">
+                    <h3 style="color: var(--text); margin-bottom: 15px;">2. Add your code with proper class names</h3>
+                    <pre style="background: var(--code-bg); color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>&lt;pre&gt;&lt;code class="language-javascript"&gt;
+console.log('Hello, World!');
+&lt;/code&gt;&lt;/pre&gt;</code></pre>
+                </div>
+
+                <div class="feature-card" style="margin-top: 20px;">
+                    <h3 style="color: var(--text); margin-bottom: 15px;">3. That's it! 🎉</h3>
+                    <p>Your code is automatically highlighted with the default theme. No additional setup required!</p>
+                </div>
+
+                <div class="feature-card" style="margin-top: 30px; background: #fef3c7; border-color: #fcd34d;">
+                    <h3 style="color: #92400e; margin-bottom: 15px;">💡 Pro Tip: Custom Themes</h3>
+                    <p style="color: #78350f;">Add theme parameters to customize the appearance:</p>
+                    <pre style="background: var(--code-bg); color: #e2e8f0; padding: 15px; border-radius: 8px; margin-top: 10px; overflow-x: auto;"><code>&lt;script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?theme=dracula"
+        crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                Made with ❤️ by <a href="https://github.com/vespaiach" target="_blank">vespaiach</a> • 
+                <a href="https://github.com/vespaiach/highlight-it" target="_blank">GitHub</a> • 
+                <a href="https://github.com/vespaiach/highlight-it/blob/main/LICENSE" target="_blank">MIT License</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const CDN_BASE = 'https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js';
+        
+        // Theme selector and elements
+        const themeSelect = document.getElementById('themeSelect');
+        const scriptTagDisplay = document.getElementById('scriptTag');
+        const copyBtn = document.getElementById('copyBtn');
+        const loader = document.getElementById('loader');
+
+        // Generate SRI hash using SubResource Integrity
+        async function generateSRIHash(url) {
+            try {
+                const response = await fetch(url);
+                const buffer = await response.arrayBuffer();
+                const hashBuffer = await crypto.subtle.digest('SHA-384', buffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashBase64 = btoa(String.fromCharCode.apply(null, hashArray));
+                return `sha384-${hashBase64}`;
+            } catch (error) {
+                console.error('Error generating SRI hash:', error);
+                return null;
+            }
+        }
+
+        // Generate script tag with theme parameter
+        async function generateScriptTag(theme) {
+            const themeParam = theme !== 'prism' ? `?theme=${theme}` : '';
+            const scriptUrl = `${CDN_BASE}${themeParam}`;
+            
+            // For demo purposes, we'll generate a hash for the base file
+            // In production, you'd want to generate a hash for each theme configuration
+            const sriHash = await generateSRIHash(CDN_BASE);
+            
+            if (sriHash) {
+                return `<script src="${scriptUrl}" integrity="${sriHash}" crossorigin="anonymous"></scr` + `ipt>`;
+            } else {
+                // Fallback without integrity if hash generation fails
+                return `<script src="${scriptUrl}" crossorigin="anonymous"></scr` + `ipt>`;
+            }
+        }
+
+        // Update script tag display
+        async function updateScriptTag() {
+            const selectedTheme = themeSelect.value;
+            loader.classList.add('active');
+            
+            const scriptTag = await generateScriptTag(selectedTheme);
+            scriptTagDisplay.textContent = scriptTag;
+            
+            loader.classList.remove('active');
+        }
+
+        // Load and apply theme to preview
+        async function loadThemePreview(theme) {
+            // Remove existing highlight-it script and stylesheets
+            const existingScripts = document.querySelectorAll('script[src*="highlight-it"]');
+            existingScripts.forEach(script => { script.remove(); });
+            
+            const existingStyles = document.querySelectorAll('link[href*="prism"]');
+            existingStyles.forEach(style => { style.remove(); });
+
+            // Load new theme
+            const themeParam = theme !== 'prism' ? `?theme=${theme}` : '';
+            const script = document.createElement('script');
+            script.src = `${CDN_BASE}${themeParam}`;
+            script.crossOrigin = 'anonymous';
+            
+            script.onload = () => {
+                // Re-highlight code blocks
+                if (window.Prism) {
+                    window.Prism.highlightAll();
+                }
+                loader.classList.remove('active');
+            };
+
+            script.onerror = () => {
+                loader.classList.remove('active');
+                console.error('Failed to load theme:', theme);
+            };
+
+            document.body.appendChild(script);
+        }
+
+        // Copy to clipboard
+        copyBtn.addEventListener('click', async () => {
+            const scriptTag = scriptTagDisplay.textContent;
+            
+            try {
+                await navigator.clipboard.writeText(scriptTag);
+                copyBtn.textContent = 'Copied! ✓';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = scriptTag;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    copyBtn.textContent = 'Copied! ✓';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.textContent = 'Copy';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                } catch (_e) {
+                    alert('Failed to copy to clipboard');
+                }
+                document.body.removeChild(textArea);
+            }
+        });
+
+        // Handle theme selection
+        themeSelect.addEventListener('change', async () => {
+            loader.classList.add('active');
+            await updateScriptTag();
+            await loadThemePreview(themeSelect.value);
+        });
+
+        // Initialize with default theme
+        (async () => {
+            await updateScriptTag();
+            await loadThemePreview('prism');
+        })();
+    </script>
+
+    <!-- Initial load with default theme -->
+    <script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
