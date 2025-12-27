@@ -22,60 +22,55 @@ That's it! Your code blocks will be automatically highlighted.
 
 ## Configuration
 
-You can configure `highlight-it` by adding query parameters to the script URL. The script supports several configuration options:
-
-### Configuration Packs
-
-Choose between pre-configured setups optimized for different use cases:
-
-#### Minimal Pack (Default)
-```html
-<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?config=minimal" defer></script>
-```
-- Lightweight setup with no plugins
-- Basic Prism theme
-- Ideal for simple use cases
-
-#### Complete Pack
-```html
-<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?config=complete" defer></script>
-```
-- Full-featured setup with enhanced plugins
-- Solarized Light / Twilight themes (auto-switching)
-- Line numbers with CSS styling
-- Line highlighting support
-- Auto-loader for language detection
+You can configure `highlight-it` by adding query parameters to the script URL.
 
 ### Query Parameters
 
-All configuration options can be set via query parameters:
-
 | Parameter | Values | Default | Description |
 |-----------|--------|---------|-------------|
-| `config` or `pack` | `minimal`, `complete` | `minimal` | Pre-configured setup pack |
-| `darkmode` or `darkMode` | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off` | auto-detect | Enable dark mode theme |
-| `verbose` | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off` | `false` | Enable verbose logging |
+| `theme` or `config` | See [Available Themes](#available-themes) | `prism` | Theme for light mode or single theme |
+| `darkmode` or `darkMode` | See [Available Themes](#available-themes) | _(auto-detect)_ | Theme for dark mode (requires system dark mode) |
+| `verbose` | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off` | `false` | Enable console logging for debugging |
+
+### Default Features
+
+Every installation includes these plugins automatically:
+- **Autoloader** - Automatic language detection and loading
+- **Line Numbers** - Displays line numbers with CSS styling
+- **Line Highlight** - Highlights specific lines
+- **Copy to Clipboard** - Copy button with toolbar
+
+### Available Themes
+
+#### Built-in Themes (Prism CDN)
+`prism` (default), `coy`, `dark`, `funky`, `okaidia`, `solarizedlight`, `tomorrow`, `twilight`
+
+#### External Themes (Prism Themes CDN)
+`a11y-dark`, `atom-dark`, `base16-ateliersulphurpool.light`, `cb`, `coldark-cold`, `coldark-dark`, `coy-without-shadows`, `darcula`, `dracula`, `duotone-dark`, `duotone-earth`, `duotone-forest`, `duotone-light`, `duotone-sea`, `duotone-space`, `ghcolors`, `gruvbox-dark`, `gruvbox-light`, `holi-theme`, `hopscotch`, `laserwave`, `lucario`, `material-dark`, `material-light`, `material-oceanic`, `night-owl`, `nord`, `one-dark`, `one-light`, `pojoaque`, `shades-of-purple`, `solarized-dark-atom`, `synthwave84`, `vs`, `vsc-dark-plus`, `xonokai`, `z-touch`
 
 ### Examples
 
-**Complete pack with dark mode:**
+**Default setup (prism theme with all plugins):**
 ```html
-<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?config=complete&darkMode=true" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js" defer></script>
 ```
 
-**Minimal pack with verbose logging:**
+**Custom theme:**
 ```html
-<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?config=minimal&verbose=true" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?theme=dracula" defer></script>
 ```
 
-**Auto dark mode detection (default behavior):**
+**Auto dark mode with different themes:**
 ```html
-<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?config=complete" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?theme=one-light&darkMode=one-dark" defer></script>
 ```
 
-When `darkMode` is not specified, the script automatically detects your system's color scheme preference using `prefers-color-scheme`.
+When `darkMode` parameter is provided, the script automatically switches themes based on your system's `prefers-color-scheme` setting.
 
-**Note:** Each engine (Prism.js, highlight.js, etc.) defines its own minimal and complete configurations optimized for that engine's capabilities.
+**Enable verbose logging:**
+```html
+<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it.js?theme=vsc-dark-plus&verbose=true" defer></script>
+```
 
 ## How It Works
 
