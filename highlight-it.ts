@@ -3,7 +3,7 @@
  * Parses script URL parameters and initializes the highlighting engine
  */
 
-import { HighlightEngine, PrismEngine } from '@/engines';
+import { HighlightEngine, PrismEngine, ShikiEngine } from '@/engines';
 import type BaseEngine from '@/engines/base';
 import { log, error as logError, parseScriptParams, setVerbose } from '@/utils';
 
@@ -30,6 +30,8 @@ import { log, error as logError, parseScriptParams, setVerbose } from '@/utils';
         let engine: BaseEngine;
         if (engineName === 'highlight') {
             engine = new HighlightEngine({ theme, darkMode });
+        } else if (engineName === 'shiki') {
+            engine = new ShikiEngine({ theme, darkMode });
         } else {
             engine = new PrismEngine({ theme, darkMode });
         }

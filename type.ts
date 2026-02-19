@@ -2,7 +2,7 @@
  * Custom configuration with theme and plugins
  */
 export interface EngineInputs {
-    engine?: 'prism' | 'highlight';
+    engine?: 'prism' | 'highlight' | 'shiki';
     theme: string;
     darkMode?: string | null;
 }

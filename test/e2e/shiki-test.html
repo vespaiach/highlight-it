@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiki Engine Test</title>
+</head>
+<body>
+    <h1>Shiki Engine Test</h1>
+    
+    <pre><code class="language-typescript">
+interface User {
+  id: number;
+  name: string;
+}
+
+const user: User = {
+  id: 1,
+  name: 'Shiki User'
+};
+
+console.log(user);
+    </code></pre>
+
+    <pre><code class="language-python">
+def hello_shiki():
+    print("Hello from Shiki!")
+
+if __name__ == "__main__":
+    hello_shiki()
+    </code></pre>
+
+    <script src="../../dist/highlight-it-2.0.0.js?engine=shiki&theme=github-light&darkMode=github-dark&verbose=true" defer></script>
+</body>
+</html>

@@ -55,7 +55,7 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-4">1. Zero-Config Start</h2>
                     <p class="text-gray-600 dark:text-gray-400 mb-8 flex-grow">
-                        Perfect for quick projects. Standard Prism engine with default themes. Just drop it in and it works.
+                        Perfect for quick projects. Support for Prism.js, Highlight.js, and Shiki engines. Just drop it in and it works.
                     </p>
                     <div class="relative group">
                         <div class="absolute -inset-0.5 bg-gradient-to-r from-pink to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
@@ -98,6 +98,7 @@
                                 <select id="engine" class="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-pink outline-none transition cursor-pointer">
                                     <option value="prism">Prism.js (Fastest)</option>
                                     <option value="highlight">Highlight.js (Popular)</option>
+                                    <option value="shiki">Shiki (Most Accurate - VS Code Style)</option>
                                 </select>
                             </div>
                             <div class="space-y-2">
@@ -234,10 +235,84 @@ print(f"Loading {merged['engine']} engine...")</code></pre>
                     "vs": "VS Code", "vs2015": "VS Code 2015", "xcode": "Xcode"
                 };
 
+                const shikiThemes = {
+                    "andromeeda": "Andromeeda",
+                    "aurora-x": "Aurora X",
+                    "ayu-dark": "Ayu Dark",
+                    "ayu-light": "Ayu Light",
+                    "ayu-mirage": "Ayu Mirage",
+                    "catppuccin-frappe": "Catppuccin Frappé",
+                    "catppuccin-latte": "Catppuccin Latte",
+                    "catppuccin-macchiato": "Catppuccin Macchiato",
+                    "catppuccin-mocha": "Catppuccin Mocha",
+                    "dark-plus": "Dark Plus",
+                    "dracula": "Dracula",
+                    "dracula-soft": "Dracula Soft",
+                    "everforest-dark": "Everforest Dark",
+                    "everforest-light": "Everforest Light",
+                    "github-dark": "GitHub Dark",
+                    "github-dark-default": "GitHub Dark Default",
+                    "github-dark-dimmed": "GitHub Dark Dimmed",
+                    "github-dark-high-contrast": "GitHub Dark High Contrast",
+                    "github-light": "GitHub Light",
+                    "github-light-default": "GitHub Light Default",
+                    "github-light-high-contrast": "GitHub Light High Contrast",
+                    "gruvbox-dark-hard": "Gruvbox Dark Hard",
+                    "gruvbox-dark-medium": "Gruvbox Dark Medium",
+                    "gruvbox-dark-soft": "Gruvbox Dark Soft",
+                    "gruvbox-light-hard": "Gruvbox Light Hard",
+                    "gruvbox-light-medium": "Gruvbox Light Medium",
+                    "gruvbox-light-soft": "Gruvbox Light Soft",
+                    "horizon": "Horizon",
+                    "houston": "Houston",
+                    "kanagawa-dragon": "Kanagawa Dragon",
+                    "kanagawa-lotus": "Kanagawa Lotus",
+                    "kanagawa-wave": "Kanagawa Wave",
+                    "laserwave": "Laserwave",
+                    "light-plus": "Light Plus",
+                    "material-theme": "Material Theme",
+                    "material-theme-darker": "Material Theme Darker",
+                    "material-theme-lighter": "Material Theme Lighter",
+                    "material-theme-ocean": "Material Theme Ocean",
+                    "material-theme-palenight": "Material Theme Palenight",
+                    "min-dark": "Min Dark",
+                    "min-light": "Min Light",
+                    "monokai": "Monokai",
+                    "night-owl": "Night Owl",
+                    "night-owl-light": "Night Owl Light",
+                    "nord": "Nord",
+                    "one-dark-pro": "One Dark Pro",
+                    "one-light": "One Light",
+                    "plastic": "Plastic",
+                    "poimandres": "Poimandres",
+                    "red": "Red",
+                    "rose-pine": "Rosé Pine",
+                    "rose-pine-dawn": "Rosé Pine Dawn",
+                    "rose-pine-moon": "Rosé Pine Moon",
+                    "slack-dark": "Slack Dark",
+                    "slack-ochin": "Slack Ochin",
+                    "snazzy-light": "Snazzy Light",
+                    "solarized-dark": "Solarized Dark",
+                    "solarized-light": "Solarized Light",
+                    "synthwave-84": "Synthwave '84",
+                    "tokyo-night": "Tokyo Night",
+                    "vesper": "Vesper",
+                    "vitesse-black": "Vitesse Black",
+                    "vitesse-dark": "Vitesse Dark",
+                    "vitesse-light": "Vitesse Light"
+                };
+
                 function populateThemes(engine) {
                     const currentL = lightThemeSelect.value;
                     const currentD = darkThemeSelect.value;
-                    const themes = engine === 'highlight' ? highlightThemes : prismThemes;
+                    let themes;
+                    if (engine === 'highlight') {
+                        themes = highlightThemes;
+                    } else if (engine === 'shiki') {
+                        themes = shikiThemes;
+                    } else {
+                        themes = prismThemes;
+                    }
                     
                     let html = '<option value="">None (Default)</option>';
                     for (const [val, label] of Object.entries(themes)) {

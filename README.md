@@ -16,7 +16,7 @@ That's it! Your code blocks will be automatically highlighted.
 
 - 🚀 **Zero Configuration** - Works out of the box with sensible defaults
 - 🎨 **Multiple Themes** - Built-in light and dark mode support
-- 🔌 **Engine Agnostic** - Currently uses Prism.js, but designed to support multiple engines
+- 🔌 **Engine Agnostic** - Support for Prism.js, Highlight.js, and Shiki engines
 - 📦 **Configuration Packs** - Pre-configured setups for different use cases
 - 🎯 **Simple API** - Configure everything via query parameters
 
@@ -28,6 +28,7 @@ You can configure `highlight-it` by adding query parameters to the script URL.
 
 | Parameter | Values | Default | Description |
 |-----------|--------|---------|-------------|
+| `engine` | `prism`, `highlight`, `shiki` | `prism` | Highlighting engine to use |
 | `theme` or `config` | See [Available Themes](#available-themes) | `prism` | Theme for light mode or single theme |
 | `darkmode` or `darkMode` | See [Available Themes](#available-themes) | _(auto-detect)_ | Theme for dark mode (requires system dark mode) |
 | `verbose` | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off` | `false` | Enable console logging for debugging |
@@ -47,6 +48,12 @@ Every installation includes these plugins automatically:
 
 #### External Themes (Prism Themes CDN)
 `a11y-dark`, `atom-dark`, `base16-ateliersulphurpool.light`, `cb`, `coldark-cold`, `coldark-dark`, `coy-without-shadows`, `darcula`, `dracula`, `duotone-dark`, `duotone-earth`, `duotone-forest`, `duotone-light`, `duotone-sea`, `duotone-space`, `ghcolors`, `gruvbox-dark`, `gruvbox-light`, `holi-theme`, `hopscotch`, `laserwave`, `lucario`, `material-dark`, `material-light`, `material-oceanic`, `night-owl`, `nord`, `one-dark`, `one-light`, `pojoaque`, `shades-of-purple`, `solarized-dark-atom`, `synthwave84`, `vs`, `vsc-dark-plus`, `xonokai`, `z-touch`
+
+#### Highlight.js Themes
+Supports all standard Highlight.js themes including: `atom-one-dark`, `atom-one-light`, `github`, `monokai`, `nord`, `tokyo-night-dark`, `vs2015`, etc.
+
+#### Shiki Themes
+Supports over 60 bundled themes including: `github-dark`, `github-light`, `nord`, `one-dark-pro`, `dracula`, `material-theme`, `catppuccin-mocha`, `rose-pine`, etc.
 
 ### Examples
 
@@ -82,14 +89,20 @@ When `darkMode` parameter is provided, the script automatically switches themes 
 
 ## Engine Architecture
 
-While currently powered by Prism.js, `highlight-it` is designed with an engine abstraction layer that makes it possible to:
-- Switch between different highlighting engines (Prism.js, highlight.js, Shiki, etc.)
-- Add new engines without breaking existing code
-- Configure engine-specific options
+`highlight-it` is designed with an engine abstraction layer that supports multiple highlighting engines:
 
-Future versions may support additional engines via the `engine` parameter:
+- [**Prism.js**](https://prismjs.com/) (Default): Fast and lightweight.
+- [**Highlight.js**](https://highlightjs.org/): Popular with broad language support.
+- [**Shiki**](https://shiki.style/): Ultra-accurate, powered by the same engine as VS Code.
+
+You can switch engines via the `engine` parameter:
+
 ```html
-<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it-2.0.0.js?engine=prism&config=modern" defer></script>
+<!-- Use Shiki engine -->
+<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it-2.0.0.js?engine=shiki&theme=github-dark" defer></script>
+
+<!-- Use Highlight.js engine -->
+<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it-2.0.0.js?engine=highlight&theme=atom-one-dark" defer></script>
 ```
 
 ## Browser Support
@@ -105,4 +118,6 @@ MIT - see [LICENSE](LICENSE) file
 
 ## References
 
-- [PrismJS](https://github.com/PrismJS/prism) - Current highlighting engine
+- [PrismJS](https://github.com/PrismJS/prism)
+- [Highlight.js](https://highlightjs.org/)
+- [Shiki](https://shiki.style/)

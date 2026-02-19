@@ -90,6 +90,8 @@ export function parseScriptParams() {
             const engineParam = url.searchParams.get('engine');
             if (engineParam === 'highlight' || engineParam === 'highlightjs') {
                 config.engine = 'highlight';
+            } else if (engineParam === 'shiki') {
+                config.engine = 'shiki';
             } else if (engineParam === 'prism') {
                 config.engine = 'prism';
             }
