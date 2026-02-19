@@ -5,17 +5,17 @@
     --font-mono: "Geist Mono", monospace;
 
     /* Primary Colors */
-    --color-black: #231F20;
-    --color-grey: #9EB0BB;
-    --color-pink: #B956A0;
-    --color-purple: #71397F;
+    --color-black: #231f20;
+    --color-grey: #9eb0bb;
+    --color-pink: #b956a0;
+    --color-purple: #71397f;
 
     /* Secondary Colors  */
-    --color-blue-sky: #2AC5F4;
-    --color-periwinkle: #A1B0DA;
-    --color-lime-green: #B2D235;
-    --color-golden-ray: #F2CE34;
-    --color-bright-red: #EC1C24;
+    --color-blue-sky: #2ac5f4;
+    --color-periwinkle: #a1b0da;
+    --color-lime-green: #b2d235;
+    --color-golden-ray: #f2ce34;
+    --color-bright-red: #ec1c24;
 }
 
 body {

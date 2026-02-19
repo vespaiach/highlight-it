@@ -43,13 +43,13 @@ export default class HighlightEngine extends BaseEngine {
         };
 
         const isDarkMode = Boolean(darkMode) && window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-        
+
         if (isDarkMode && config.builtIn.themes[darkMode]) {
             addBuiltInResource(config.builtIn.themes[darkMode]);
             log(`[Highlight Engine] Dark mode theme "${darkMode}" applied based on system preference.`);
             return;
         }
-        
+
         if (config.builtIn.themes[theme]) {
             addBuiltInResource(config.builtIn.themes[theme]);
             log(`[Highlight Engine] Theme "${theme}" applied.`);

@@ -4,6 +4,7 @@
  */
 
 import { HighlightEngine, PrismEngine } from '@/engines';
+import type BaseEngine from '@/engines/base';
 import { log, error as logError, parseScriptParams, setVerbose } from '@/utils';
 
 (async () => {
@@ -26,7 +27,7 @@ import { log, error as logError, parseScriptParams, setVerbose } from '@/utils';
         log('highlight-it initialized with config:', { engine: engineName, theme, darkMode, verbose });
 
         // Load the engine
-        let engine;
+        let engine: BaseEngine;
         if (engineName === 'highlight') {
             engine = new HighlightEngine({ theme, darkMode });
         } else {

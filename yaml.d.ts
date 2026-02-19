@@ -18,7 +18,7 @@ declare module '*.yaml' {
             themes: Record<string, string>;
         };
     }
-    
+
     const value: EngineConfig;
     export default value;
 }

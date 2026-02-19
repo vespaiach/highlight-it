@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>highlight-it - Highlight.js Engine Test</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: #f4f4f9;
-            color: #333;
-        }
-        pre {
-            padding: 1rem;
-            border-radius: 8px;
-            overflow-x: auto;
-        }
-        .test-section {
-            background: white;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h2 { margin-top: 0; }
-    </style>
-</head>
-<body>
-    <h1>Highlight.js Engine Test</h1>
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <title>highlight-it - Highlight.js Engine Test</title>
+        <style>
+            body {
+                font-family: system-ui, -apple-system, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 2rem;
+                background: #f4f4f9;
+                color: #333;
+            }
+            pre {
+                padding: 1rem;
+                border-radius: 8px;
+                overflow-x: auto;
+            }
+            .test-section {
+                background: white;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            h2 {
+                margin-top: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Highlight.js Engine Test</h1>
 
-    <div class="test-section">
-        <h2>JavaScript Example</h2>
-        <pre><code class="language-javascript">function helloWorld() {
+        <div class="test-section">
+            <h2>JavaScript Example</h2>
+            <pre><code class="language-javascript">function helloWorld() {
   console.log("Hello from highlight-it using Highlight.js!");
   const items = [1, 2, 3, 4, 5];
   return items.map(x => x * 2);
 }
 </code></pre>
-    </div>
+        </div>
 
-    <div class="test-section">
-        <h2>Python Example</h2>
-        <pre><code class="language-python">def greet(name):
+        <div class="test-section">
+            <h2>Python Example</h2>
+            <pre><code class="language-python">def greet(name):
     """A simple greeting function"""
     return f"Hello, {name}!"
 
 if __name__ == "__main__":
     print(greet("Highlight.js"))
 </code></pre>
-    </div>
+        </div>
 
-    <div class="test-section">
-        <h2>CSS Example</h2>
-        <pre><code class="language-css">.highlight-it {
+        <div class="test-section">
+            <h2>CSS Example</h2>
+            <pre><code class="language-css">.highlight-it {
     color: #ff4500;
     font-weight: bold;
     border: 1px solid currentColor;
     padding: 0.5em;
 }
 </code></pre>
-    </div>
+        </div>
 
-    <!-- Load local built highlight-it.js -->
-    <script src="../../dist/highlight-it.js?engine=highlight&theme=atom-one-dark&verbose=true"></script>
-</body>
+        <!-- Load local built highlight-it.js -->
+        <script src="../../dist/highlight-it.js?engine=highlight&theme=atom-one-dark&verbose=true"></script>
+    </body>
 </html>

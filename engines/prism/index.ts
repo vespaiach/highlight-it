@@ -1,6 +1,6 @@
 import BaseEngine from '@/engines/base';
 import config from '@/engines/prism/config.yaml';
-import type { EngineInputs, Resource } from '@/type';
+import type { EngineInputs, PluginResource, Resource } from '@/type';
 import { assertString, log, error as logError, warn } from '@/utils';
 
 /**
@@ -14,7 +14,7 @@ export default class PrismEngine extends BaseEngine {
         super();
         const { theme, darkMode } = inputs;
 
-        log('Loaded config:', config)
+        log('Loaded config:', config);
         this.setTheme(theme, darkMode || '');
         this.setPlugins();
     }
@@ -81,14 +81,16 @@ export default class PrismEngine extends BaseEngine {
 
     setPlugins() {
         // Add plugin
-        config.builtIn.plugins.forEach((plugin) => {
+        config.builtIn.plugins?.forEach((plugin: PluginResource) => {
             this.resources.push({
-                script: assertString(plugin.script) ? `${config.builtIn.urlPrefix}${plugin.script}` : undefined,
+                script: assertString(plugin.script)
+                    ? `${config.builtIn.urlPrefix}${plugin.script}`
+                    : undefined,
                 link: assertString(plugin.link) ? `${config.builtIn.urlPrefix}${plugin.link}` : undefined,
-                dependencies: plugin.dependencies?.map((dep) => ({
+                dependencies: plugin.dependencies?.map((dep: PluginResource) => ({
                     script: assertString(dep.script) ? `${config.builtIn.urlPrefix}${dep.script}` : undefined,
-                    link: assertString(dep.link) ? `${config.builtIn.urlPrefix}${dep.link}` : undefined
-                }))
+                    link: assertString(dep.link) ? `${config.builtIn.urlPrefix}${dep.link}` : undefined,
+                })),
             });
         });
 

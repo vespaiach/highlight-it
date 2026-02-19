@@ -10,7 +10,27 @@ export interface EngineInputs {
 export interface Resource {
     script?: string;
     link?: string;
-	dependencies?: Resource[];
+    dependencies?: Resource[];
+}
+
+export interface PluginResource {
+    script?: string;
+    link?: string;
+    dependencies?: PluginResource[];
+}
+
+export interface ConfigSection {
+    urlPrefix: string;
+    themes: Record<string, string>;
+    plugins?: PluginResource[];
+}
+
+export interface EngineConfig {
+    builtIn: ConfigSection;
+    external?: {
+        urlPrefix: string;
+        themes: Record<string, string>;
+    };
 }
 
 /**

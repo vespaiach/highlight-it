@@ -1,209 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <title>highlight-it - External Theme Test</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+                background: #282c34;
+                color: #abb2bf;
+            }
 
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>highlight-it - External Theme Test</title>
-		<style>
-			body {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 20px;
-				background: #282c34;
-				color: #abb2bf;
-			}
+            h1 {
+                color: #61afef;
+                border-bottom: 2px solid #61afef;
+                padding-bottom: 10px;
+            }
 
-			h1 {
-				color: #61afef;
-				border-bottom: 2px solid #61afef;
-				padding-bottom: 10px;
-			}
+            .test-section {
+                background: #21252b;
+                padding: 20px;
+                margin: 20px 0;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            }
 
-			.test-section {
-				background: #21252b;
-				padding: 20px;
-				margin: 20px 0;
-				border-radius: 8px;
-				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-			}
+            .test-section h2 {
+                color: #e5c07b;
+                margin-top: 0;
+            }
 
-			.test-section h2 {
-				color: #e5c07b;
-				margin-top: 0;
-			}
+            .info-box {
+                background: #3e4451;
+                border-left: 4px solid #98c379;
+                padding: 15px;
+                margin: 15px 0;
+                border-radius: 4px;
+            }
 
-			.info-box {
-				background: #3e4451;
-				border-left: 4px solid #98c379;
-				padding: 15px;
-				margin: 15px 0;
-				border-radius: 4px;
-			}
+            .info-box strong {
+                color: #98c379;
+            }
 
-			.info-box strong {
-				color: #98c379;
-			}
+            .info-box code {
+                background: #282c34;
+                color: #e06c75;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-family: "Fira Code", "Consolas", monospace;
+            }
 
-			.info-box code {
-				background: #282c34;
-				color: #e06c75;
-				padding: 2px 6px;
-				border-radius: 3px;
-				font-family: "Fira Code", "Consolas", monospace;
-			}
+            pre[class*="language-"] {
+                margin: 15px 0;
+                border-radius: 6px;
+            }
 
-			pre[class*="language-"] {
-				margin: 15px 0;
-				border-radius: 6px;
-			}
+            .theme-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 10px;
+                margin: 15px 0;
+            }
 
-			.theme-list {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-				gap: 10px;
-				margin: 15px 0;
-			}
+            .theme-item {
+                background: #3e4451;
+                padding: 8px 12px;
+                border-radius: 4px;
+                font-size: 14px;
+                color: #c678dd;
+            }
 
-			.theme-item {
-				background: #3e4451;
-				padding: 8px 12px;
-				border-radius: 4px;
-				font-size: 14px;
-				color: #c678dd;
-			}
+            .theme-selector {
+                margin: 20px 0;
+                padding: 15px;
+                background: #3e4451;
+                border-radius: 6px;
+            }
 
-			.theme-selector {
-				margin: 20px 0;
-				padding: 15px;
-				background: #3e4451;
-				border-radius: 6px;
-			}
+            .theme-selector label {
+                display: block;
+                margin-bottom: 10px;
+                font-weight: 600;
+                color: #61afef;
+                font-size: 16px;
+            }
 
-			.theme-selector label {
-				display: block;
-				margin-bottom: 10px;
-				font-weight: 600;
-				color: #61afef;
-				font-size: 16px;
-			}
+            .theme-selector select {
+                width: 100%;
+                max-width: 400px;
+                padding: 10px 15px;
+                font-size: 15px;
+                border: 2px solid #4b5363;
+                border-radius: 6px;
+                background: #282c34;
+                color: #abb2bf;
+                cursor: pointer;
+                transition:
+                    border-color 0.2s,
+                    background-color 0.2s;
+            }
 
-			.theme-selector select {
-				width: 100%;
-				max-width: 400px;
-				padding: 10px 15px;
-				font-size: 15px;
-				border: 2px solid #4b5363;
-				border-radius: 6px;
-				background: #282c34;
-				color: #abb2bf;
-				cursor: pointer;
-				transition: border-color 0.2s, background-color 0.2s;
-			}
+            .theme-selector select:hover {
+                border-color: #61afef;
+                background: #21252b;
+            }
 
-			.theme-selector select:hover {
-				border-color: #61afef;
-				background: #21252b;
-			}
+            .theme-selector select:focus {
+                outline: none;
+                border-color: #98c379;
+                box-shadow: 0 0 0 3px rgba(152, 195, 121, 0.2);
+            }
 
-			.theme-selector select:focus {
-				outline: none;
-				border-color: #98c379;
-				box-shadow: 0 0 0 3px rgba(152, 195, 121, 0.2);
-			}
+            .theme-selector select option {
+                background: #282c34;
+                color: #abb2bf;
+                padding: 10px;
+            }
+        </style>
+    </head>
 
-			.theme-selector select option {
-				background: #282c34;
-				color: #abb2bf;
-				padding: 10px;
-			}
-		</style>
-	</head>
+    <body>
+        <h1>🎨 highlight-it - External Theme Test</h1>
 
-	<body>
-		<h1>🎨 highlight-it - External Theme Test</h1>
+        <div class="test-section">
+            <div class="theme-selector">
+                <label for="themeSelect">🎨 Select External Theme:</label>
+                <select id="themeSelect">
+                    <option value="a11y-dark">A11y Dark</option>
+                    <option value="atom-dark">Atom Dark</option>
+                    <option value="base16-ateliersulphurpool.light">Base16 Atelier Sulphurpool Light</option>
+                    <option value="cb">CB</option>
+                    <option value="coldark-cold">Coldark Cold</option>
+                    <option value="coldark-dark">Coldark Dark</option>
+                    <option value="coy-without-shadows">Coy Without Shadows</option>
+                    <option value="darcula">Darcula</option>
+                    <option value="dracula">Dracula</option>
+                    <option value="duotone-dark">Duotone Dark</option>
+                    <option value="duotone-earth">Duotone Earth</option>
+                    <option value="duotone-forest">Duotone Forest</option>
+                    <option value="duotone-light">Duotone Light</option>
+                    <option value="duotone-sea">Duotone Sea</option>
+                    <option value="duotone-space">Duotone Space</option>
+                    <option value="ghcolors">GitHub Colors</option>
+                    <option value="gruvbox-dark">Gruvbox Dark</option>
+                    <option value="gruvbox-light">Gruvbox Light</option>
+                    <option value="holi-theme">Holi Theme</option>
+                    <option value="hopscotch">Hopscotch</option>
+                    <option value="laserwave">Laserwave</option>
+                    <option value="lucario">Lucario</option>
+                    <option value="material-dark">Material Dark</option>
+                    <option value="material-light">Material Light</option>
+                    <option value="material-oceanic">Material Oceanic</option>
+                    <option value="night-owl">Night Owl</option>
+                    <option value="nord">Nord</option>
+                    <option value="one-dark" selected>One Dark</option>
+                    <option value="one-light">One Light</option>
+                    <option value="pojoaque">Pojoaque</option>
+                    <option value="shades-of-purple">Shades of Purple</option>
+                    <option value="solarized-dark-atom">Solarized Dark Atom</option>
+                    <option value="synthwave84">Synthwave '84</option>
+                    <option value="vs">VS</option>
+                    <option value="vsc-dark-plus">VS Code Dark+</option>
+                    <option value="xonokai">Xonokai</option>
+                    <option value="z-touch">Z-Touch</option>
+                </select>
+            </div>
+        </div>
 
-		<div class="test-section">
-			<div class="theme-selector">
-				<label for="themeSelect">🎨 Select External Theme:</label>
-				<select id="themeSelect">
-					<option value="a11y-dark">A11y Dark</option>
-					<option value="atom-dark">Atom Dark</option>
-					<option value="base16-ateliersulphurpool.light">Base16 Atelier Sulphurpool Light</option>
-					<option value="cb">CB</option>
-					<option value="coldark-cold">Coldark Cold</option>
-					<option value="coldark-dark">Coldark Dark</option>
-					<option value="coy-without-shadows">Coy Without Shadows</option>
-					<option value="darcula">Darcula</option>
-					<option value="dracula">Dracula</option>
-					<option value="duotone-dark">Duotone Dark</option>
-					<option value="duotone-earth">Duotone Earth</option>
-					<option value="duotone-forest">Duotone Forest</option>
-					<option value="duotone-light">Duotone Light</option>
-					<option value="duotone-sea">Duotone Sea</option>
-					<option value="duotone-space">Duotone Space</option>
-					<option value="ghcolors">GitHub Colors</option>
-					<option value="gruvbox-dark">Gruvbox Dark</option>
-					<option value="gruvbox-light">Gruvbox Light</option>
-					<option value="holi-theme">Holi Theme</option>
-					<option value="hopscotch">Hopscotch</option>
-					<option value="laserwave">Laserwave</option>
-					<option value="lucario">Lucario</option>
-					<option value="material-dark">Material Dark</option>
-					<option value="material-light">Material Light</option>
-					<option value="material-oceanic">Material Oceanic</option>
-					<option value="night-owl">Night Owl</option>
-					<option value="nord">Nord</option>
-					<option value="one-dark" selected>One Dark</option>
-					<option value="one-light">One Light</option>
-					<option value="pojoaque">Pojoaque</option>
-					<option value="shades-of-purple">Shades of Purple</option>
-					<option value="solarized-dark-atom">Solarized Dark Atom</option>
-					<option value="synthwave84">Synthwave '84</option>
-					<option value="vs">VS</option>
-					<option value="vsc-dark-plus">VS Code Dark+</option>
-					<option value="xonokai">Xonokai</option>
-					<option value="z-touch">Z-Touch</option>
-				</select>
-			</div>
-		</div>
+        <div class="test-section">
+            <h2>About External Themes</h2>
+            <div class="info-box">
+                <strong>What are external themes?</strong>
+                <p>
+                    External themes are loaded from the <code>prism-themes</code>repository, which provides additional
+                    community-created themes beyond the built-in Prism themes. This test uses the <code>one-dark</code>
+                    theme inspired by Atom's One Dark theme.
+                </p>
+                <p>
+                    <strong>Current theme:</strong>
+                    <code>theme=one-dark</code>
+                    <br >
+                    <strong>Source:</strong>PrismJS/prism-themes repository
+                </p>
+            </div>
+        </div>
 
-		<div class="test-section">
-			<h2>About External Themes</h2>
-			<div class="info-box">
-				<strong>What are external themes?</strong>
-				<p>
-					External themes are loaded from the <code>prism-themes</code> repository,
-					which provides additional community-created themes beyond the built-in Prism themes.
-					This test uses the <code>one-dark</code> theme inspired by Atom's One Dark theme.
-				</p>
-				<p>
-					<strong>Current theme:</strong> <code>theme=one-dark</code><br />
-					<strong>Source:</strong> PrismJS/prism-themes repository
-				</p>
-			</div>
-		</div>
+        <div class="test-section">
+            <h2>Popular External Themes</h2>
+            <div class="theme-list">
+                <div class="theme-item">atom-dark</div>
+                <div class="theme-item">dracula</div>
+                <div class="theme-item">one-dark</div>
+                <div class="theme-item">one-light</div>
+                <div class="theme-item">material-dark</div>
+                <div class="theme-item">material-light</div>
+                <div class="theme-item">night-owl</div>
+                <div class="theme-item">nord</div>
+                <div class="theme-item">vsc-dark-plus</div>
+                <div class="theme-item">synthwave84</div>
+            </div>
+        </div>
 
-		<div class="test-section">
-			<h2>Popular External Themes</h2>
-			<div class="theme-list">
-				<div class="theme-item">atom-dark</div>
-				<div class="theme-item">dracula</div>
-				<div class="theme-item">one-dark</div>
-				<div class="theme-item">one-light</div>
-				<div class="theme-item">material-dark</div>
-				<div class="theme-item">material-light</div>
-				<div class="theme-item">night-owl</div>
-				<div class="theme-item">nord</div>
-				<div class="theme-item">vsc-dark-plus</div>
-				<div class="theme-item">synthwave84</div>
-			</div>
-		</div>
-
-		<div class="test-section">
-			<h2>TypeScript Example</h2>
-			<pre><code class="language-typescript">// TypeScript interfaces and generics
+        <div class="test-section">
+            <h2>TypeScript Example</h2>
+            <pre><code class="language-typescript">// TypeScript interfaces and generics
 interface Repository&lt;T&gt; {
   findById(id: string): Promise&lt;T | null&gt;;
   findAll(filter?: Partial&lt;T&gt;): Promise&lt;T[]&gt;;
@@ -245,11 +248,11 @@ class UserRepository implements Repository&lt;User&gt; {
 const userRepo = new UserRepository(database);
 const user = await userRepo.findById('user-123');
 </code></pre>
-		</div>
+        </div>
 
-		<div class="test-section">
-			<h2>React Component with Hooks</h2>
-			<pre><code class="language-jsx">import React, { useState, useEffect, useCallback } from 'react';
+        <div class="test-section">
+            <h2>React Component with Hooks</h2>
+            <pre><code class="language-jsx">import React, { useState, useEffect, useCallback } from 'react';
 import { debounce } from 'lodash';
 
 /**
@@ -332,11 +335,11 @@ function SearchableUserList() {
 
 export default SearchableUserList;
 </code></pre>
-		</div>
+        </div>
 
-		<div class="test-section">
-			<h2>Python Async Example</h2>
-			<pre><code class="language-python">import asyncio
+        <div class="test-section">
+            <h2>Python Async Example</h2>
+            <pre><code class="language-python">import asyncio
 import aiohttp
 from typing import List, Dict, Optional
 from dataclasses import dataclass
@@ -415,11 +418,11 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 </code></pre>
-		</div>
+        </div>
 
-		<div class="test-section">
-			<h2>Go Concurrent Programming</h2>
-			<pre><code class="language-go">package main
+        <div class="test-section">
+            <h2>Go Concurrent Programming</h2>
+            <pre><code class="language-go">package main
 
 import (
 	"context"
@@ -538,67 +541,66 @@ func main() {
 	fmt.Println("All tasks completed")
 }
 </code></pre>
-		</div>
+        </div>
 
-		<script>
-			// Get current theme from URL or default to one-dark
-			function getCurrentTheme() {
-				const urlParams = new URLSearchParams(window.location.search);
-				return urlParams.get('theme') || 'one-dark';
-			}
+        <script>
+            // Get current theme from URL or default to one-dark
+            function getCurrentTheme() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('theme') || 'one-dark';
+            }
 
-			// Set the dropdown to the current theme
-			function initThemeSelector() {
-				const currentTheme = getCurrentTheme();
-				const themeSelect = document.getElementById('themeSelect');
-				
-				if (themeSelect) {
-					themeSelect.value = currentTheme;
-					
-					// Update info box with current theme
-					const themeCode = document.querySelector('.info-box code:first-of-type');
-					if (themeCode) {
-						themeCode.textContent = `theme=${currentTheme}`;
-					}
-				}
-			}
+            // Set the dropdown to the current theme
+            function initThemeSelector() {
+                const currentTheme = getCurrentTheme();
+                const themeSelect = document.getElementById('themeSelect');
 
-			// Handle theme change
-			function changeTheme(event) {
-				const selectedTheme = event.target.value;
-				const url = new URL(window.location);
-				url.searchParams.set('theme', selectedTheme);
-				window.location.href = url.toString();
-			}
+                if (themeSelect) {
+                    themeSelect.value = currentTheme;
 
-			// Display theme information on load
-			window.addEventListener("load", () => {
-				const currentTheme = getCurrentTheme();
-				console.log(`highlight-it loaded with external theme: ${currentTheme}`);
-				console.log("External themes are loaded from: https://cdn.jsdelivr.net/gh/PrismJS/prism-themes");
-				
-				// Initialize theme selector
-				initThemeSelector();
-				
-				// Add event listener for theme changes
-				const themeSelect = document.getElementById('themeSelect');
-				if (themeSelect) {
-					themeSelect.addEventListener('change', changeTheme);
-				}
-			});
-		</script>
+                    // Update info box with current theme
+                    const themeCode = document.querySelector('.info-box code:first-of-type');
+                    if (themeCode) {
+                        themeCode.textContent = `theme=${currentTheme}`;
+                    }
+                }
+            }
 
-		<!-- Load highlight-it with external theme -->
-		<script>
-			// Dynamically load highlight-it with selected theme
-			(() => {
-				const urlParams = new URLSearchParams(window.location.search);
-				const theme = urlParams.get('theme') || 'one-dark';
-				const script = document.createElement('script');
-				script.src = `../../dist/highlight-it.js?theme=${theme}&verbose=true`;
-				document.currentScript.parentNode.insertBefore(script, document.currentScript.nextSibling);
-			})();
-		</script>
-	</body>
+            // Handle theme change
+            function changeTheme(event) {
+                const selectedTheme = event.target.value;
+                const url = new URL(window.location);
+                url.searchParams.set('theme', selectedTheme);
+                window.location.href = url.toString();
+            }
 
+            // Display theme information on load
+            window.addEventListener('load', () => {
+                const currentTheme = getCurrentTheme();
+                console.log(`highlight-it loaded with external theme: ${currentTheme}`);
+                console.log('External themes are loaded from: https://cdn.jsdelivr.net/gh/PrismJS/prism-themes');
+
+                // Initialize theme selector
+                initThemeSelector();
+
+                // Add event listener for theme changes
+                const themeSelect = document.getElementById('themeSelect');
+                if (themeSelect) {
+                    themeSelect.addEventListener('change', changeTheme);
+                }
+            });
+        </script>
+
+        <!-- Load highlight-it with external theme -->
+        <script>
+            // Dynamically load highlight-it with selected theme
+            (() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const theme = urlParams.get('theme') || 'one-dark';
+                const script = document.createElement('script');
+                script.src = `../../dist/highlight-it.js?theme=${theme}&verbose=true`;
+                document.currentScript.parentNode.insertBefore(script, document.currentScript.nextSibling);
+            })();
+        </script>
+    </body>
 </html>

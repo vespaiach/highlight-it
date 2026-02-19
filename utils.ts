@@ -65,7 +65,7 @@ export function parseScriptParams() {
         engine: 'prism',
         theme: 'prism',
         darkMode: '',
-        verbose: false
+        verbose: false,
     };
 
     // Parse URL parameters if script element is available
