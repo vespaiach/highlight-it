@@ -3,7 +3,7 @@
  * Parses script URL parameters and initializes the highlighting engine
  */
 
-import { PrismEngine } from '@/engines';
+import { HighlightEngine, PrismEngine } from '@/engines';
 import { log, error as logError, parseScriptParams, setVerbose } from '@/utils';
 
 (async () => {
@@ -20,13 +20,18 @@ import { log, error as logError, parseScriptParams, setVerbose } from '@/utils';
 
     // ==================== Main Execution ====================
     try {
-        const { theme, darkMode, verbose } = parseScriptParams();
+        const { engine: engineName, theme, darkMode, verbose } = parseScriptParams();
         setVerbose(verbose);
 
-        log('highlight-it initialized with config:', { theme, darkMode, verbose });
+        log('highlight-it initialized with config:', { engine: engineName, theme, darkMode, verbose });
 
-        // Load the engine (currently only Prism.js is supported)
-        const engine = new PrismEngine({ theme, darkMode });
+        // Load the engine
+        let engine;
+        if (engineName === 'highlight') {
+            engine = new HighlightEngine({ theme, darkMode });
+        } else {
+            engine = new PrismEngine({ theme, darkMode });
+        }
 
         // Initialize the engine with parsed configuration
         await engine.initialize();

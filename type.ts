@@ -2,6 +2,7 @@
  * Custom configuration with theme and plugins
  */
 export interface EngineInputs {
+    engine?: 'prism' | 'highlight';
     theme: string;
     darkMode?: string | null;
 }

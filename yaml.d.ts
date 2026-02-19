@@ -1,24 +1,24 @@
-declare module '*/prism/config.yaml' {
-    interface PrismPlugin {
+declare module '*.yaml' {
+    interface PluginResource {
         script?: string;
         link?: string;
-        dependencies?: PrismPlugin[];
+        dependencies?: PluginResource[];
     }
 
-    interface PrismConfigSection {
+    interface ConfigSection {
         urlPrefix: string;
         themes: Record<string, string>;
-        plugins: PrismPlugin[];
+        plugins?: PluginResource[];
     }
 
-    interface PrismConfig {
-        builtIn: PrismConfigSection;
-        external: {
+    interface EngineConfig {
+        builtIn: ConfigSection;
+        external?: {
             urlPrefix: string;
             themes: Record<string, string>;
         };
     }
     
-    const value: PrismConfig;
+    const value: EngineConfig;
     export default value;
 }

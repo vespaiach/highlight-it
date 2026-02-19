@@ -62,6 +62,7 @@ export function parseScriptParams() {
 
     // Default configuration
     const config: EngineInputs & { verbose: boolean } = {
+        engine: 'prism',
         theme: 'prism',
         darkMode: '',
         verbose: false
@@ -71,6 +72,14 @@ export function parseScriptParams() {
     if (scriptElement && scriptElement instanceof HTMLScriptElement && scriptElement.src) {
         try {
             const url = new URL(scriptElement.src);
+
+            // Get engine parameter
+            const engineParam = url.searchParams.get('engine');
+            if (engineParam === 'highlight' || engineParam === 'highlightjs') {
+                config.engine = 'highlight';
+            } else if (engineParam === 'prism') {
+                config.engine = 'prism';
+            }
 
             // Get pack parameter (config or pack)
             config.theme = url.searchParams.get('theme') || url.searchParams.get('config') || 'prism';

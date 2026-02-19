@@ -38,8 +38,8 @@ export default abstract class BaseEngine {
     }
 
     public static addResourceLoaded(resource: Resource) {
-        assertString(resource.script) && BaseEngine.loadedResources.has(resource.script);
-        assertString(resource.link) && BaseEngine.loadedResources.has(resource.link);
+        assertString(resource.script) && BaseEngine.loadedResources.add(resource.script);
+        assertString(resource.link) && BaseEngine.loadedResources.add(resource.link);
     }
 
     /**

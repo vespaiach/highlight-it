@@ -1,8 +1,8 @@
-import PrismEngine from "./prism/index.js";
+import HighlightEngine from './highlight/index.js';
+import PrismEngine from './prism/index.js';
 
 export {
-    PrismEngine
-    // Future engines:
-    // highlightjs: () => import('./highlightjs.js'),
+    PrismEngine,
+    HighlightEngine,
     // shiki: () => import('./shiki.js'),
 };

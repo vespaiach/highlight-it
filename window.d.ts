@@ -13,6 +13,10 @@ declare global {
             plugins?: { autoloader?: any };
             highlightAll?: () => void;
         };
+        hljs?: {
+            highlightAll: () => void;
+            configure: (options: any) => void;
+        };
     }
 }
 
