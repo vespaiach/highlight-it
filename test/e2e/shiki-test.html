@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiki Engine Test</title>
-</head>
-<body>
-    <h1>Shiki Engine Test</h1>
-    
-    <pre><code class="language-typescript">
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <title>Shiki Engine Test</title>
+        <style>
+            /* Example CSS to show line numbers */
+            pre.shiki {
+                padding-top:8px;
+                padding-bottom: 12px;
+                padding-left: 8px;
+            }
+            pre.shiki code {
+                counter-reset: step;
+                counter-increment: step 0;
+            }
+
+            pre.shiki code .line::before {
+                content: counter(step);
+                counter-increment: step;
+                width: 1rem;
+                margin-right: 1.5rem;
+                display: inline-block;
+                text-align: right;
+                color: rgba(115, 138, 148, 0.4);
+                
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Shiki Engine Test</h1>
+
+        <pre><code class="language-typescript">
 interface User {
   id: number;
   name: string;
@@ -22,7 +45,7 @@ const user: User = {
 console.log(user);
     </code></pre>
 
-    <pre><code class="language-python">
+        <pre><code class="language-python">
 def hello_shiki():
     print("Hello from Shiki!")
 
@@ -30,6 +53,8 @@ if __name__ == "__main__":
     hello_shiki()
     </code></pre>
 
-    <script src="../../dist/highlight-it-2.0.0.js?engine=shiki&theme=github-light&darkMode=github-dark&verbose=true" defer></script>
-</body>
+        <script
+            src="../../dist/highlight-it.js?engine=shiki&theme=github-light&darkMode=github-dark&verbose=true"
+            defer></script>
+    </body>
 </html>

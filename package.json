@@ -1,6 +1,6 @@
 {
     "name": "highlight-it",
-    "version": "2.0.0",
+    "version": "1.0.0",
     "description": "A simple, engine-agnostic syntax highlighting loader for web pages. Just include one script and you're done.",
     "homepage": "https://github.com/vespaiach/highlight-it#readme",
     "bugs": {
@@ -20,25 +20,27 @@
         "highlight",
         "loader"
     ],
-    "type": "commonjs",
-    "main": "highlight-it.js",
+    "type": "module",
+    "main": "dist/highlight-it.js",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "test": "http-server",
         "docs": "overmind s",
-        "build": "VERSION=$(bun -e \"console.log(require('./package.json').version)\") && bun build highlight-it.ts --outfile ./dist/highlight-it.js --target browser --bundle --minify && cp ./dist/highlight-it.js ./dist/highlight-it-$VERSION.js && rm ./dist/highlight-it.js",
+        "build": "bun build highlight-it.ts --outfile ./dist/highlight-it.js --target browser --bundle --minify",
+        "prepublishOnly": "bun run build",
         "type-check": "tsc --noEmit",
         "type-check:watch": "tsc --noEmit --watch"
     },
-    "dependencies": {
-        "@tailwindcss/cli": "^4.1.18",
-        "http-server": "^14.1.1",
-        "tailwindcss": "^4.1.18"
-    },
     "devDependencies": {
         "@biomejs/biome": "2.3.10",
+        "@tailwindcss/cli": "^4.1.18",
         "@types/bun": "^1.3.5",
         "@types/node": "^25.0.3",
+        "daisyui": "^5.5.18",
+        "http-server": "^14.1.1",
+        "tailwindcss": "^4.1.18",
         "typescript": "^5.9.3"
-    },
-    "private": true
+    }
 }

@@ -24,12 +24,12 @@ export default class ShikiEngine extends BaseEngine {
         try {
             // Dynamically import shiki from CDN
             const shiki = await import(/* @lite-ignore */ config.url);
-            
+
             this.highlighter = await shiki.createHighlighter({
                 themes: [this.theme, this.darkModeTheme],
-                langs: [] // Will be loaded on demand
+                langs: [], // Will be loaded on demand
             });
-            
+
             this.loadedLangs.add('text');
             log('Shiki Engine initialized.');
         } catch (er) {
@@ -45,7 +45,7 @@ export default class ShikiEngine extends BaseEngine {
 
         const codeBlocks = document.querySelectorAll('pre code');
         const isDarkMode = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-        const activeTheme = (isDarkMode && this.darkModeTheme) ? this.darkModeTheme : this.theme;
+        const activeTheme = isDarkMode && this.darkModeTheme ? this.darkModeTheme : this.theme;
 
         for (const codeBlock of Array.from(codeBlocks)) {
             const element = codeBlock as HTMLElement;
@@ -54,7 +54,7 @@ export default class ShikiEngine extends BaseEngine {
 
             // Extract language from class (e.g., language-js)
             const classNames = Array.from(element.classList);
-            const langClass = classNames.find(c => c.startsWith('language-'));
+            const langClass = classNames.find((c) => c.startsWith('language-'));
             const lang = langClass ? langClass.replace('language-', '') : 'text';
 
             try {
@@ -75,7 +75,7 @@ export default class ShikiEngine extends BaseEngine {
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = html;
                 const newPre = tempDiv.firstChild as HTMLElement;
-                
+
                 if (newPre) {
                     // Transfer some classes if needed, or just replace
                     parent.replaceWith(newPre);

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <title>highlight-it - Modern Syntax Highlighting Loader</title>
+        <link rel="stylesheet" href="./main.css" >
+        <script>
+            // Immediate theme check to prevent FOUC
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
+    </head>
+
+    <body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans">
+        <!-- Theme Toggle Button -->
+        <div class="fixed bottom-8 right-8 z-50">
+            <button
+                id="theme-toggle"
+                class="w-14 h-14 bg-pink text-white rounded-full shadow-2xl flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 focus:outline-none"
+                aria-label="Toggle Dark Mode">
+                <svg id="theme-toggle-dark-icon" class="hidden w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 py-12">
+            <!-- Hero Section -->
+            <header class="text-center mb-20">
+                <div class="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wider text-pink uppercase bg-pink/10 rounded-full">
+                    v2.0.0 released
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
+                    <span class="text-gray-900 dark:text-white">highlight</span><span class="text-pink">-it</span>
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    The simplest way to add beautiful syntax highlighting to any web page. 
+                    No configuration, no hassle, just results.
+                </p>
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <a href="#quick-start" class="px-8 py-3 bg-gray-900 dark:bg-white dark:text-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition shadow-lg">Get Started</a>
+                    <a href="https://github.com/vespaiach/highlight-it" class="px-8 py-3 border border-gray-300 dark:border-gray-700 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">GitHub</a>
+                </div>
+            </header>
+
+            <!-- Two Ways to Start -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20" id="quick-start">
+                <!-- Option A: Zero Config -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col h-full">
+                    <div class="w-12 h-12 bg-pink/10 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4">1. Zero-Config Start</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8 flex-grow">
+                        Perfect for quick projects. Support for Prism.js, Highlight.js, and Shiki engines. Just drop it in and it works.
+                    </p>
+                    <div class="relative group">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-pink to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                        <div class="relative bg-gray-950 rounded-lg p-4 flex items-center justify-between">
+                            <code id="default-script" class="text-pink text-sm font-mono overflow-x-auto whitespace-nowrap mr-4">
+                                &lt;script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it-2.0.0.js" defer&gt;&lt;/script&gt;
+                            </code>
+                            <button class="copy-btn text-white/50 hover:text-white transition cursor-pointer" data-copy="default-script" title="Copy code">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Option B: Custom Configuration -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col h-full border-pink/30">
+                    <div class="w-12 h-12 bg-pink/10 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4">2. Custom Config</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8 flex-grow">
+                        Tailor the engine and themes to match your site's aesthetic perfectly. Supports system dark mode switching.
+                    </p>
+                    <a href="#customization" class="w-full py-3 bg-pink text-white text-center font-bold rounded-lg hover:opacity-90 transition">Configure Now</a>
+                </div>
+            </div>
+
+            <!-- Customization Section -->
+            <section id="customization" class="mb-20">
+                <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-xl overflow-hidden">
+                    <div class="p-8 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
+                        <h2 class="text-3xl font-bold mb-2">🎨 Customization</h2>
+                        <p class="text-gray-600 dark:text-gray-400">Generate a custom script tag for your specific needs.</p>
+                    </div>
+                    
+                    <div class="p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="space-y-2">
+                                <label for="engine" class="text-sm font-bold uppercase tracking-wider text-gray-500">Highlighting Engine</label>
+                                <select id="engine" class="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-pink outline-none transition cursor-pointer">
+                                    <option value="prism">Prism.js (Fastest)</option>
+                                    <option value="highlight">Highlight.js (Popular)</option>
+                                    <option value="shiki">Shiki (Most Accurate - VS Code Style)</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="lightTheme" class="text-sm font-bold uppercase tracking-wider text-gray-500">Light Mode Theme</label>
+                                <select id="lightTheme" class="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-pink outline-none transition cursor-pointer">
+                                    <option value="">None (Default)</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="darkTheme" class="text-sm font-bold uppercase tracking-wider text-gray-500">Dark Mode Theme</label>
+                                <select id="darkTheme" class="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-pink outline-none transition cursor-pointer">
+                                    <option value="">None (Default)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-950 rounded-2xl p-6 relative">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Generated Script Tag</span>
+                                <button class="copy-btn flex items-center gap-2 text-pink hover:text-pink/80 transition font-bold text-sm cursor-pointer" data-copy="custom-script">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                    Copy Script
+                                </button>
+                            </div>
+                            <pre class="overflow-x-auto"><code id="custom-script" class="text-gray-300 font-mono text-sm leading-relaxed"></code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="space-y-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-3xl font-bold">Live Preview</h2>
+                    <div id="preview-status" class="px-3 py-1 bg-pink/10 text-pink text-xs font-bold rounded-full uppercase tracking-tighter">
+                        Active Config applied
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- JS Preview -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-widest px-1">
+                            <span>JavaScript</span>
+                        </div>
+                        <pre class="line-numbers"><code class="language-javascript">async function fetchUserData(userId) {
+    try {
+        const response = await fetch(`/api/users/${userId}`);
+        const data = await response.json();
+        return { success: true, user: data };
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+const userProfile = {
+    id: 42,
+    username: 'dev_hero',
+    roles: ['admin', 'moderator']
+};</code></pre>
+                    </div>
+
+                    <!-- Python Preview -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-widest px-1">
+                            <span>Python</span>
+                        </div>
+                        <pre class="line-numbers"><code class="language-python">@dataclass
+class HighlightingEngine:
+    name: str
+    is_active: bool = True
+
+    def toggle(self):
+        self.is_active = not self.is_active
+
+# Modern Python dictionary merging
+config = {"engine": "prism", "theme": "okaidia"}
+defaults = {"darkMode": True}
+merged = {**defaults, **config}
+
+print(f"Loading {merged['engine']} engine...")</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mt-32 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 highlight-it. Released under MIT License.</p>
+            </footer>
+        </div>
+
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                // Theme Toggle Logic
+                const themeToggleBtn = document.getElementById('theme-toggle');
+                const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+                const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+                const isDark = document.documentElement.classList.contains('dark');
+                if (isDark) themeToggleLightIcon.classList.remove('hidden');
+                else themeToggleDarkIcon.classList.remove('hidden');
+
+                themeToggleBtn.addEventListener('click', () => {
+                    themeToggleDarkIcon.classList.toggle('hidden');
+                    themeToggleLightIcon.classList.toggle('hidden');
+                    
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                });
+
+                // Customization Logic
+                const engineSelect = document.getElementById('engine');
+                const lightThemeSelect = document.getElementById('lightTheme');
+                const darkThemeSelect = document.getElementById('darkTheme');
+                const customScriptCode = document.getElementById('custom-script');
+
+                const prismThemes = {
+                    "prism": "Prism (Default)", "coy": "Coy", "dark": "Dark", "funky": "Funky", "okaidia": "Okaidia",
+                    "solarizedlight": "Solarized Light", "tomorrow": "Tomorrow", "twilight": "Twilight",
+                    "a11y-dark": "A11y Dark", "atom-dark": "Atom Dark", "darcula": "Darcula", "dracula": "Dracula",
+                    "ghcolors": "GitHub Colors", "material-dark": "Material Dark", "night-owl": "Night Owl",
+                    "nord": "Nord", "one-dark": "One Dark", "vsc-dark-plus": "VS Code Dark+"
+                };
+
+                const highlightThemes = {
+                    "default": "Default", "atom-one-dark": "Atom One Dark", "atom-one-light": "Atom One Light",
+                    "dracula": "Dracula", "github": "GitHub", "github-dark": "GitHub Dark", "monokai": "Monokai",
+                    "night-owl": "Night Owl", "nord": "Nord", "tokyo-night-dark": "Tokyo Night Dark",
+                    "vs": "VS Code", "vs2015": "VS Code 2015", "xcode": "Xcode"
+                };
+
+                const shikiThemes = {
+                    "andromeeda": "Andromeeda",
+                    "aurora-x": "Aurora X",
+                    "ayu-dark": "Ayu Dark",
+                    "ayu-light": "Ayu Light",
+                    "ayu-mirage": "Ayu Mirage",
+                    "catppuccin-frappe": "Catppuccin Frappé",
+                    "catppuccin-latte": "Catppuccin Latte",
+                    "catppuccin-macchiato": "Catppuccin Macchiato",
+                    "catppuccin-mocha": "Catppuccin Mocha",
+                    "dark-plus": "Dark Plus",
+                    "dracula": "Dracula",
+                    "dracula-soft": "Dracula Soft",
+                    "everforest-dark": "Everforest Dark",
+                    "everforest-light": "Everforest Light",
+                    "github-dark": "GitHub Dark",
+                    "github-dark-default": "GitHub Dark Default",
+                    "github-dark-dimmed": "GitHub Dark Dimmed",
+                    "github-dark-high-contrast": "GitHub Dark High Contrast",
+                    "github-light": "GitHub Light",
+                    "github-light-default": "GitHub Light Default",
+                    "github-light-high-contrast": "GitHub Light High Contrast",
+                    "gruvbox-dark-hard": "Gruvbox Dark Hard",
+                    "gruvbox-dark-medium": "Gruvbox Dark Medium",
+                    "gruvbox-dark-soft": "Gruvbox Dark Soft",
+                    "gruvbox-light-hard": "Gruvbox Light Hard",
+                    "gruvbox-light-medium": "Gruvbox Light Medium",
+                    "gruvbox-light-soft": "Gruvbox Light Soft",
+                    "horizon": "Horizon",
+                    "houston": "Houston",
+                    "kanagawa-dragon": "Kanagawa Dragon",
+                    "kanagawa-lotus": "Kanagawa Lotus",
+                    "kanagawa-wave": "Kanagawa Wave",
+                    "laserwave": "Laserwave",
+                    "light-plus": "Light Plus",
+                    "material-theme": "Material Theme",
+                    "material-theme-darker": "Material Theme Darker",
+                    "material-theme-lighter": "Material Theme Lighter",
+                    "material-theme-ocean": "Material Theme Ocean",
+                    "material-theme-palenight": "Material Theme Palenight",
+                    "min-dark": "Min Dark",
+                    "min-light": "Min Light",
+                    "monokai": "Monokai",
+                    "night-owl": "Night Owl",
+                    "night-owl-light": "Night Owl Light",
+                    "nord": "Nord",
+                    "one-dark-pro": "One Dark Pro",
+                    "one-light": "One Light",
+                    "plastic": "Plastic",
+                    "poimandres": "Poimandres",
+                    "red": "Red",
+                    "rose-pine": "Rosé Pine",
+                    "rose-pine-dawn": "Rosé Pine Dawn",
+                    "rose-pine-moon": "Rosé Pine Moon",
+                    "slack-dark": "Slack Dark",
+                    "slack-ochin": "Slack Ochin",
+                    "snazzy-light": "Snazzy Light",
+                    "solarized-dark": "Solarized Dark",
+                    "solarized-light": "Solarized Light",
+                    "synthwave-84": "Synthwave '84",
+                    "tokyo-night": "Tokyo Night",
+                    "vesper": "Vesper",
+                    "vitesse-black": "Vitesse Black",
+                    "vitesse-dark": "Vitesse Dark",
+                    "vitesse-light": "Vitesse Light"
+                };
+
+                function populateThemes(engine) {
+                    const currentL = lightThemeSelect.value;
+                    const currentD = darkThemeSelect.value;
+                    let themes;
+                    if (engine === 'highlight') {
+                        themes = highlightThemes;
+                    } else if (engine === 'shiki') {
+                        themes = shikiThemes;
+                    } else {
+                        themes = prismThemes;
+                    }
+                    
+                    let html = '<option value="">None (Default)</option>';
+                    for (const [val, label] of Object.entries(themes)) {
+                        html += `<option value="${val}">${label}</option>`;
+                    }
+                    lightThemeSelect.innerHTML = html;
+                    darkThemeSelect.innerHTML = html;
+                    
+                    if (themes[currentL]) lightThemeSelect.value = currentL;
+                    if (themes[currentD]) darkThemeSelect.value = currentD;
+                }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const engine = urlParams.get('engine') || 'prism';
+                const theme = urlParams.get('theme');
+                const darkMode = urlParams.get('darkMode');
+
+                engineSelect.value = engine;
+                populateThemes(engine);
+                if (theme) lightThemeSelect.value = theme;
+                if (darkMode) darkThemeSelect.value = darkMode;
+
+                function updateScript() {
+                    const eng = engineSelect.value;
+                    const lt = lightThemeSelect.value;
+                    const dt = darkThemeSelect.value;
+                    
+                    const q = [];
+                    if (eng !== 'prism') q.push(`engine=${eng}`);
+                    if (lt) q.push(`theme=${lt}`);
+                    if (dt) q.push(`darkMode=${dt}`);
+                    
+                    const baseUrl = 'https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it-2.0.0.js';
+                    const fullUrl = q.length > 0 ? `${baseUrl}?${q.join('&')}` : baseUrl;
+                    customScriptCode.textContent = '<' + 'script src="' + fullUrl + '" defer><' + '/script>';
+                }
+
+                function applyChanges() {
+                    const eng = engineSelect.value;
+                    const lt = lightThemeSelect.value;
+                    const dt = darkThemeSelect.value;
+                    const q = [];
+                    if (eng !== 'prism') q.push(`engine=${eng}`);
+                    if (lt) q.push(`theme=${lt}`);
+                    if (dt) q.push(`darkMode=${dt}`);
+                    window.location.href = `${window.location.pathname}${q.length > 0 ? `?${q.join('&')}` : ''}#customization`;
+                }
+
+                updateScript();
+                engineSelect.addEventListener('change', () => { populateThemes(engineSelect.value); applyChanges(); });
+                lightThemeSelect.addEventListener('change', applyChanges);
+                darkThemeSelect.addEventListener('change', applyChanges);
+
+                // Load Library for Preview
+                const script = document.createElement('script');
+                const previewTheme = theme || (engine === 'highlight' ? 'default' : 'prism');
+                const previewDarkMode = darkMode || '';
+                
+                const q = [];
+                if (engine !== 'prism') q.push(`engine=${engine}`);
+                if (previewTheme) q.push(`theme=${previewTheme}`);
+                if (previewDarkMode) q.push(`darkMode=${previewDarkMode}`);
+                q.push('verbose=true');
+
+                script.src = `../dist/highlight-it-2.0.0.js${q.length > 0 ? `?${q.join('&')}` : ''}`;
+                script.defer = true;
+                document.body.appendChild(script);
+
+                // Copy functionality
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const targetId = btn.getAttribute('data-copy');
+                        const text = document.getElementById(targetId).textContent;
+                        try {
+                            await navigator.clipboard.writeText(text.trim());
+                            const original = btn.innerHTML;
+                            btn.innerHTML = '<span class="text-[10px] text-green-400">COPIED</span>';
+                            setTimeout(() => { btn.innerHTML = original; }, 2000);
+                        } catch (err) { console.error(err); }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -7,7 +7,7 @@ A simple, engine-agnostic syntax highlighting loader for web pages. Just include
 Add this single line to your HTML (at the end of your `body` tag):
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/vespaiach/highlight-it@main/dist/highlight-it-2.0.0.js" integrity="sha384-zh0jk0z2/k745j30lRgmEzY6xGUxkwsJ4l37MZe1nmQR7yLDhM8n4m+G8ct7ZAyu" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight-it@1.0.0/dist/highlight-it.js"></script>
 ```
 
 That's it! Your code blocks will be automatically highlighted.

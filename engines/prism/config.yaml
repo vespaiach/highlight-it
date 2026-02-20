@@ -11,10 +11,6 @@ builtIn:
     prism: '/themes/prism.min.css'
   plugins:
     - script: '/plugins/autoloader/prism-autoloader.min.js'
-    - script: '/plugins/line-numbers/prism-line-numbers.min.js'
-      link: '/plugins/line-numbers/prism-line-numbers.min.css'
-    - script: '/plugins/line-highlight/prism-line-highlight.min.js'
-      link: '/plugins/line-highlight/prism-line-highlight.min.css'
     - script: '/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js'
       dependencies:
         - script: '/plugins/toolbar/prism-toolbar.min.js'

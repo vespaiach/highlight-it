@@ -93,9 +93,6 @@ export default class PrismEngine extends BaseEngine {
                 })),
             });
         });
-
-        // Add line-numbers class
-        document.body.classList.add('line-numbers');
     }
 
     async highlight() {
