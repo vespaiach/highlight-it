@@ -7,9 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "build:lib": "bun build ./src/shiki-loader/index.ts --outfile ./public/shiki-loader.js --target browser --bundle --minify && bun run scripts/embed-loader-css.ts",
+    "test": "bun test",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "daisyui": "^5.5.19",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

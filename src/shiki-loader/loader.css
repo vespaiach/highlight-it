@@ -1,0 +1,93 @@
+.shiki-loader-mockup-code {
+  border-radius: 0.5rem;
+  direction: ltr;
+  padding-block: 1.25rem;
+  font-size: 0.875rem;
+  position: relative;
+  overflow: visible;
+}
+.shiki-loader-mockup-code:before {
+  content: "";
+  opacity: 0.3;
+  border-radius: 3.40282e38px;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-bottom: 1rem;
+  display: block;
+  box-shadow:
+    1.4em 0,
+    2.8em 0,
+    4.2em 0;
+}
+.shiki-loader-mockup-code pre {
+  padding-right: 1.25rem;
+  overflow: auto;
+}
+.shiki-loader-language-label {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+}
+.shiki-loader-mockup-code span.line:before {
+  content: "";
+  margin-right: 2ch;
+}
+.shiki-loader-tooltip {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  --tt-off: calc(100% + 0.5rem);
+  --tt-tail: calc(100% + 1px + 0.25rem);
+  --tw-content: attr(data-tip);
+}
+.shiki-loader-copy-button {
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shiki-loader-tooltip:hover::before {
+  opacity: 1;
+  --tt-pos: 0rem;
+}
+.shiki-loader-tooltip::before {
+  border-radius: 0.25rem;
+  text-align: center;
+  white-space: normal;
+  max-width: 20rem;
+  opacity: 0;
+  color: oklch(92% 0.004 286.32);
+  background-color: oklch(14% 0.005 285.823);
+  pointer-events: none;
+  z-index: 2;
+  content: var(--tw-content);
+  width: max-content;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  position: absolute;
+  transform: translate(calc(var(--tt-pos, 0.25rem) - 0.25rem)) translateY(-50%);
+  inset: 50% var(--tt-off) auto auto;
+}
+.shiki-loader-language-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}

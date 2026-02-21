@@ -1,9 +1,0 @@
-@import "tailwindcss";
- @plugin "daisyui" {
-   themes: light --default, dark --prefersdark;
- }
-
-@theme {
-    --font-sans: "Montserrat", sans-serif;
-    --font-mono: "Geist Mono", monospace;
-}
