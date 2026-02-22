@@ -124,7 +124,7 @@ export default function HomeClient() {
         <h2 className="font-semibold">Live Preview</h2>
         <div id="the-script" className={highlightHtmlCode ? "bounce-in-top" : ""}>
           <pre>
-            <code className="language-html">{`<script src="https://cdn.jsdelivr.net/npm/shiki-loader@latest/dist/shiki-loader.js?theme=${theme}${darkTheme ? `&dark-theme=${darkTheme}` : ""}" defer></script>`}</code>
+            <code className="language-html">{`<script src="https://cdn.jsdelivr.net/gh/vespaiach/shiki-loader@main/public/shiki-loader.js?theme=${theme}${darkTheme ? `&dark-theme=${darkTheme}` : ""}" defer></script>`}</code>
           </pre>
         </div>
         <div>
