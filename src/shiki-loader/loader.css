@@ -21,7 +21,10 @@
 }
 .shiki-loader-mockup-code pre {
   padding-right: 1.25rem;
+  padding-left: 2ch;
   overflow: auto;
+  white-space: pre-wrap;
+  display: inline-block;
 }
 .shiki-loader-language-label {
   position: absolute;
@@ -31,10 +34,6 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   opacity: 0.8;
-}
-.shiki-loader-mockup-code span.line:before {
-  content: "";
-  margin-right: 2ch;
 }
 .shiki-loader-tooltip {
   position: absolute;

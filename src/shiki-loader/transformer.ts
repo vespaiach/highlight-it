@@ -38,7 +38,7 @@ export default function createShikiLoaderTransformer(lang: string) {
                 properties: {
                   type: "button",
                   class: "shiki-loader-copy-button",
-                  "data-target": "copy"
+                  "data-target": "copy",
                 },
                 children: [
                   {

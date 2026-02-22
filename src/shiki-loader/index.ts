@@ -53,15 +53,13 @@ async function highlight() {
       const newPre = tempDiv.firstElementChild as HTMLElement | null;
 
       if (newPre) {
-        const wrapper = document.createElement("div");
-        const wrapperClass = langClass || `language-${lang}`;
+        const languageClass = langClass || `language-${lang}`;
 
-        if (wrapperClass) {
-          wrapper.classList.add(wrapperClass);
+        if (languageClass) {
+          newPre.classList.add(languageClass);
         }
 
-        wrapper.appendChild(newPre);
-        parent.replaceWith(wrapper);
+        parent.replaceWith(newPre);
       }
     } catch (err) {
       console.error(`Failed to highlight code block with language "${lang}":`, err);

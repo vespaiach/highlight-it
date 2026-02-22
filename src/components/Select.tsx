@@ -13,7 +13,7 @@ export default function Select({
   onChange,
   options = DEFAULT_THEME_OPTIONS,
   allowEmpty = false,
-  optionalText
+  optionalText,
 }: {
   label: string;
   value: string | null;
