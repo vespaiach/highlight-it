@@ -1,4 +1,3 @@
-import Link from "next/link";
 import AngleLeft from "@/components/icons/AngleLeft";
 import Github from "@/components/icons/Github";
 
@@ -7,10 +6,10 @@ export default async function AboutPage() {
     <div className="min-h-screen bg-base-100 text-base-content antialiased">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         <nav className="mb-12 -ml-4">
-          <Link href="/" className="btn btn-sm btn-link gap-1">
+          <a href="https://vespaiach.github.io/shiki-loader/" className="btn btn-sm btn-link gap-1">
             <AngleLeft size={18} />
             Back to Home
-          </Link>
+          </a>
         </nav>
 
         <header className="mb-16">

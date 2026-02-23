@@ -126,12 +126,6 @@ export default function HomeClient() {
             <Refresh size={18} className="ml-2" />
           </button>
         </fieldset>
-
-        <div className="mt-auto pt-10 text-center">
-          <Link href="/about" className="link link-hover text-sm opacity-60">
-            About Shiki Loader
-          </Link>
-        </div>
       </div>
 
       <div className="flex-1 md:flex-6 py-8 px-12 flex flex-col gap-6">
